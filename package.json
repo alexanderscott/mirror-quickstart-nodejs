@@ -12,7 +12,8 @@
   "dependencies": {
     "googleapis": "~0.4.6",
     "express": "~3.4.6",
-    "hbs": "~2.4.0"
+    "hbs": "~2.4.0",
+    "request": "~2.27.0"
   },
   "devDependencies": {
     "mocha": "1.8.x"
