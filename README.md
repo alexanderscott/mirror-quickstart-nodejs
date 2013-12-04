@@ -1,4 +1,4 @@
 mirror-quickstart-nodejs
 ========================
 
-Google Mirror API's Quickstart for Node.js
+Google Mirror API's Quickstart for Node.js (using Express)
