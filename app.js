@@ -4,13 +4,20 @@ var express = require('express'),
     http = require('http'),
     fs = require('fs'),
     _ = require("underscore"),
+    mirrorClient = require('../lib/MirrorClient'),
     async = require('async'),
     path = require("path"),
-    config = require('./config/config'),
-    logger = global.logger = require('./utils/logger'),
+    config = require('config'),
+    MirrorClient = require('../lib/MirrorClient'),
 
     app = express(),
     server;
+
+app.locals.mirrorClient = new MirrorClient({
+    clientId: config.googleApis.clientId,
+    clientSecret: config.googleApis.clientSecret,
+    redirectUri: config.googleApis.redirectUri[0]
+});
 
 // Allow node to be run with proxy passing
 app.enable('trust proxy');
@@ -31,9 +38,10 @@ app.use( express.compress() );
 app.use( express.methodOverride() );
 app.use( express.bodyParser() );            // Needed to parse POST data sent as JSON payload
 
-// Cookie config
+// Session setup
 app.use( express.cookieParser( config.cookieSecret ) );           // populates req.signedCookies
 app.use( express.cookieSession( config.sessionSecret ) );         // populates req.session, needed for CSRF
+
 
 // // We need serverside view templating to initially set the CSRF token in the <head> metadata
 // // Otherwise, the html could just be served statically from the public directory
@@ -46,20 +54,18 @@ app.use(express.static(__dirname+'/public'));
 app.use(express.csrf());
 
 
-app.use( app.router );
-
-
-app.get("/", function(req, res){
-    res.render('index', { csrfToken: req.csrfToken() });
-});
-
 // Setup routes
-//app.use( require('./app/routes') );
+app.use( app.router );
+require('./app/routes')(app);
 
-function start(){
-    server = http.createServer(app).listen( process.env.PORT || config.port);
-    logger.info((new Date()).toString()+ ":: glasstasks server listening on port::", server.address().port, ", environment:: ", app.settings.env);
-}
 
-exports.start = start;
-exports.app = app;
+server = http.createServer(app).listen( process.env.PORT || config.port);
+
+
+//function start(){
+    //server = http.createServer(app).listen( process.env.PORT || config.port);
+    //logger.info((new Date()).toString()+ ":: glasstasks server listening on port::", server.address().port, ", environment:: ", app.settings.env);
+//}
+
+//exports.start = start;
+//exports.app = app;

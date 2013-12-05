@@ -3,9 +3,10 @@
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Glassware Starter Project</title>
-        <link href="/static/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+        <link href="/public/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
         <link href="/public/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet" media="screen">
-        <link href="/static/main.css" rel="stylesheet" media="screen">
+        <link href="/public/app.css" rel="stylesheet" media="screen">
+        <meta name="csrf-token" content="{{csrfToken}}">
     </head>
     <body>
         <div class="navbar navbar-inverse navbar-fixed-top">
@@ -109,12 +110,12 @@
                         <input type="hidden" name="operation" value="insertItem">
                         <input type="hidden" name="message" value="Chipotle says 'hi'!">
                         <input type="hidden" name="imageUrl"
-                        value="/static/images/chipotle-tube-640x360.jpg">
+                        value="/public/images/chipotle-tube-640x360.jpg">
                         <input type="hidden" name="contentType" value="image/jpeg">
 
                         <button class="btn btn-block" type="submit">
                             Insert a picture
-                            <img class="button-icon" src="/static/images/chipotle-tube-640x360.jpg">
+                            <img class="button-icon" src="/public/images/chipotle-tube-640x360.jpg">
                         </button>
                     </form>
                     <form action="/" method="post">
@@ -156,7 +157,7 @@
                     <form action="/" method="post">
                         <input type="hidden" name="operation" value="insertContact">
                         <input type="hidden" name="imageUrl"
-                        value="/static/images/python.png">
+                        value="/public/images/python.png">
                         <input type="hidden" name="name" value="Python Quick Start">
                         <input type="hidden" name="id" value="python-quick-start">
                         <button class="btn btn-block btn-success" type="submit">
