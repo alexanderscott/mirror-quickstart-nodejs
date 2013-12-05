@@ -22,21 +22,21 @@ describe('contacts', function() {
     });
 
     describe('#listContacts()', function() {
-        it('', function(cb) {
+        it('returns a list of contacts', function(cb) {
 
             cb();
         });
     });
 
     describe('#insertContact()', function() {
-        it('', function(cb) {
+        it('inserts a contact', function(cb) {
 
             cb();
         });
     });
 
     describe('#deleteContact()', function() {
-        it('', function(cb) {
+        it('deletes a contact', function(cb) {
 
             cb();
         });

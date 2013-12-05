@@ -21,43 +21,43 @@ describe('timeline', function() {
         cb();
     });
 
-    describe('#insertItem()', function() {
-        it('', function(cb) {
+    describe('#insertTimelineItem()', function() {
+        it('inserts a timeline item', function(cb) {
 
             cb();
         });
     });
 
-    describe('#deleteItem()', function() {
-        it('', function(cb) {
+    describe('#deleteTimelineItem()', function() {
+        it('deletes a timeline item', function(cb) {
 
             cb();
         });
     });
 
     describe('#insertAllUsers()', function() {
-        it('', function(cb) {
+        it('inserts all users', function(cb) {
 
             cb();
         });
     });
 
     describe('#insertPrettyItem()', function() {
-        it('', function(cb) {
+        it('inserts a pretty item', function(cb) {
 
             cb();
         });
     });
 
     describe('#insertItemWithAction()', function() {
-        it('', function(cb) {
+        it('inserts an item with action', function(cb) {
 
             cb();
         });
     });
 
     describe('#getAttachmentProxy()', function() {
-        it('', function(cb) {
+        it('can get an attachment proxy', function(cb) {
 
             cb();
         });

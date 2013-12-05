@@ -1,19 +1,28 @@
 "use strict";
 
-var googleApis = require('googleapis');
+exports.insertSubscription(req, res) {
+    var subscription = {
 
+    };
+    req.app.locals.mirrorClient.insertSubscription(subscription, function(err){
+        if(err) return res.error(err);
+        res.json({});
 
-function insertSubscription(req, res) {
-
-    res.json({});
+    });
 }
 
-function deleteSubscription(req, res) {
+exports.deleteSubscription(req, res) {
+    var subscription = {
 
-    res.json({});
+    };
+    req.app.locals.mirrorClient.deleteSubscription(subscription, function(err){
+        if(err) return res.error(err);
+        res.json({});
+
+    });
 }
 
-function getNotificationCallback(req, res) {
+exports.getNotificationCallback(req, res) {
 
     res.json({});
 }

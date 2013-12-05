@@ -1,34 +1,51 @@
 "use strict";
 
-var googleApis = require('googleapis');
+exports.insertTimelineItem(req, res) {
+    var item = {
 
+    };
+    req.app.locals.mirrorClient.insertTimelineItem(item, function(err){
+        if(err) return res.error(err);
+        res.json({});
+    });
+}
 
-function insertItem(req, res) {
+exports.deleteTimelineItem(req, res) {
+    var item = {
+
+    };
+    req.app.locals.mirrorClient.deleteTimelineItem(item, function(err){
+        if(err) return res.error(err);
+        res.json({});
+    });
+}
+
+exports.insertAllUsers(req, res) {
 
     res.json({});
 }
 
-function deleteItem(req, res) {
+exports.insertPrettyItem(req, res) {
+    var item = {
 
-    res.json({});
+    };
+    req.app.locals.mirrorClient.deleteTimelineItem(item, function(err){
+        if(err) return res.error(err);
+        res.json({});
+    });
 }
 
-function insertAllUsers(req, res) {
+exports.insertItemWithAction(req, res) {
+    var item = {
 
-    res.json({});
+    };
+    req.app.locals.mirrorClient.deleteTimelineItem(item, function(err){
+        if(err) return res.error(err);
+        res.json({});
+    });
 }
 
-function insertPrettyItem(req, res) {
-
-    res.json({});
-}
-
-function insertItemWithAction(req, res) {
-
-    res.json({});
-}
-
-function getAttachmentProxy(req, res) {
+exports.getAttachmentProxy(req, res) {
 
     res.json({});
 }

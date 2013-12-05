@@ -1,19 +1,28 @@
 "use strict";
 
-var googleApis = require('googleapis');
+exports.listContacts(req, res) {
+    req.app.locals.mirrorClient.listContacts(function(err, contacts){
+        if(err) return res.error(err);
+        res.json({ contacts: contacts });
+    });
+};
 
+exports.insertContact(req, res) {
+    var contact = {
 
-function listContacts(req, res) {
+    };
+    req.app.locals.mirrorClient.insertContact(contact, function(err){
+        if(err) return res.error(err);
+        res.json({});
+    });
+};
 
-    res.json({});
-}
+exports.deleteContact(req, res) {
+    var contact = {
 
-function insertContact(req, res) {
-
-    res.json({});
-}
-
-function deleteContact(req, res) {
-
-    res.json({});
-}
+    };
+    req.app.locals.mirrorClient.deleteContact(contact, function(err){
+        if(err) return res.error(err);
+        res.json({});
+    });
+};

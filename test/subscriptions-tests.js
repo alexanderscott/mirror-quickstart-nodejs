@@ -22,14 +22,14 @@ describe('subscriptions', function() {
     });
 
     describe('#insertSubscription()', function() {
-        it('', function(cb) {
+        it('inserts a subscription', function(cb) {
 
             cb();
         });
     });
 
     describe('#deleteSubscription()', function() {
-        it('', function(cb) {
+        it('deletes a subscription', function(cb) {
 
             cb();
         });
