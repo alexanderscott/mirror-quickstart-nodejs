@@ -6,14 +6,14 @@ var util = require('util'),
 
 exports.insertItem = function(req, res) {
     var item = _und.sample( timelineFixtures );
-    req.app.locals.mirrorClient.insertTimelineItem(item, function(err){
+    req.app.locals.mirrorClient.insertItem(item, function(err){
         if(err) return res.error(err);
         res.json({});
     });
 }
 
 exports.deleteItem = function(req, res) {
-    req.app.locals.mirrorClient.deleteTimelineItem( req.param.id, function(err){
+    req.app.locals.mirrorClient.deleteItem( req.param.id, function(err){
         if(err) return res.error(err);
         res.json({});
     });
@@ -27,7 +27,7 @@ exports.insertAllUsers = function(req, res) {
 exports.insertPrettyItem = function(req, res) {
     var item = _und.sample( timelineFixtures );
 
-    req.app.locals.mirrorClient.insertItemItem(item, function(err){
+    req.app.locals.mirrorClient.insertItem(item, function(err){
         if(err) return res.error(err);
         res.json({});
     });
@@ -36,7 +36,7 @@ exports.insertPrettyItem = function(req, res) {
 exports.insertItemWithAction = function(req, res) {
     var item = _und.sample( timelineFixtures );
 
-    req.app.locals.mirrorClient.insertItemItem(item, function(err){
+    req.app.locals.mirrorClient.insertItem(item, function(err){
         if(err) return res.error(err);
         res.json({});
     });
