@@ -12,5 +12,10 @@ module.exports = [
             { type: "POST_AN_UPDATE" },
             { type: "TAKE_A_NOTE" }
         ]
+    },
+    {
+        id: "nodejs-quickstart",
+        displayName: "Node.js Quick Start",
+        imageUrls: [ config.host + ':' + config.port + '/assets/images/chipotle-tube-640x360.jpg']
     }
 ];

@@ -25,5 +25,8 @@ module.exports = [
     },
     {
         text: "Did you know cats have 167 bones in their tails?  Mee-wow!"
+    },
+    {
+        text: 'Welcome to the Mirror API Node.js Quick Start'
     }
 ];
