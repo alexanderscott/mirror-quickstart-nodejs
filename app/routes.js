@@ -1,6 +1,8 @@
 "use strict";
 
-var config = require('../config'),
+var util = require('util'),
+    _und = require('underscore'),
+    config = require('../config'),
     timelineController = require('./controllers/timeline'),
     contactsController = require('./controllers/contacts'),
     subscriptionsController = require('./controllers/subscriptions'),

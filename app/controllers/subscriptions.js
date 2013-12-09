@@ -1,9 +1,12 @@
 "use strict";
 
-exports.insertSubscription(req, res) {
-    var subscription = {
+var util = require('util'),
+    _und = require('underscore'),
+    subscriptionFixtures = require('../../fixtures/subscriptions');
 
-    };
+exports.insertSubscription(req, res) {
+    var subscription = { };
+    var subscription = _und.sample( subscriptionFixtures );
     req.app.locals.mirrorClient.insertSubscription(subscription, function(err){
         if(err) return res.error(err);
         res.json({});

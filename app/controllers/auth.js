@@ -1,5 +1,8 @@
 "use strict";
 
+var util = require('util'),
+    _und = require('underscore');
+
 var CredentialsStore = require('../../lib/CredentialsStore'),
     credentialsStore = new CredentialsStore({});
 
