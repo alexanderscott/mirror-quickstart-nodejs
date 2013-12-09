@@ -1,5 +1,7 @@
 "use strict";
 
+var config = require('../config');
+
 module.exports = [
     {
         id: "harold",
@@ -11,5 +13,4 @@ module.exports = [
             { type: "TAKE_A_NOTE" }
         ]
     }
-
 ];

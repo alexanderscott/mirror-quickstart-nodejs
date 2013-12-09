@@ -17,7 +17,7 @@ module.exports = [
                 values: [
                     {
                         displayName: 'Drill Into',
-                        iconUrl: config.baseUrl + "/images/drill.png"
+                        iconUrl: config.host + ':' + config.port + "/images/drill.png"
                     }
                 ] 
             }
