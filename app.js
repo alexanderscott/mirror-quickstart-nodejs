@@ -46,7 +46,7 @@ app.use( express.cookieSession( config.sessionSecret ) );         // populates r
 // // We need serverside view templating to initially set the CSRF token in the <head> metadata
 // // Otherwise, the html could just be served statically from the public directory
 app.set('view engine', 'html');
-app.set('views', __dirname + '/views' );
+app.set('views', __dirname + '/app/views' );
 app.engine('html', require('hbs').__express);
 
 
