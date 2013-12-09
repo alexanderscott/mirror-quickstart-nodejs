@@ -2,9 +2,9 @@
 
 var util = require('util'),
     _und = require('underscore'),
-    timelineFixtures = require('../../fixtures/timelineItems');
+    timelineFixtures = require('../../fixture/timelineItems');
 
-exports.insertTimelineItem(req, res) {
+exports.insertItem = function(req, res) {
     var item = _und.sample( timelineFixtures );
     req.app.locals.mirrorClient.insertTimelineItem(item, function(err){
         if(err) return res.error(err);
@@ -12,7 +12,7 @@ exports.insertTimelineItem(req, res) {
     });
 }
 
-exports.deleteTimelineItem(req, res) {
+exports.deleteItem = function(req, res) {
     var item = {
 
     };
@@ -22,12 +22,12 @@ exports.deleteTimelineItem(req, res) {
     });
 }
 
-exports.insertAllUsers(req, res) {
+exports.insertAllUsers = function(req, res) {
 
     res.json({});
 }
 
-exports.insertPrettyItem(req, res) {
+exports.insertPrettyItem = function(req, res) {
     //var item = { };
     var item = _und.sample( timelineFixtures );
 
@@ -37,7 +37,7 @@ exports.insertPrettyItem(req, res) {
     });
 }
 
-exports.insertItemWithAction(req, res) {
+exports.insertItemWithAction = function(req, res) {
     //var item = { };
     var item = _und.sample( timelineFixtures );
     req.app.locals.mirrorClient.deleteTimelineItem(item, function(err){
@@ -46,7 +46,7 @@ exports.insertItemWithAction(req, res) {
     });
 }
 
-exports.getAttachmentProxy(req, res) {
+exports.getAttachmentProxy = function(req, res) {
 
     res.json({});
 }

@@ -14,8 +14,10 @@
     "express": "~3.4.6",
     "hbs": "~2.4.0",
     "request": "~2.27.0",
-    "sqlite3": "~2.1.19",
-    "bcrypt": "~0.7.7"
+    "sqlite3": "~2.x.x",
+    "bcrypt": "~0.7.7",
+    "underscore": "~1.5.2",
+    "async": "~0.2.9"
   },
   "devDependencies": {
     "mocha": "1.8.x"

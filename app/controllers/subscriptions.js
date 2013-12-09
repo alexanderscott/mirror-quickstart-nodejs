@@ -2,9 +2,9 @@
 
 var util = require('util'),
     _und = require('underscore'),
-    subscriptionFixtures = require('../../fixtures/subscriptions');
+    subscriptionFixtures = require('../../fixture/subscriptions');
 
-exports.insertSubscription(req, res) {
+exports.insertSubscription = function(req, res) {
     var subscription = { };
     var subscription = _und.sample( subscriptionFixtures );
     req.app.locals.mirrorClient.insertSubscription(subscription, function(err){
@@ -14,7 +14,7 @@ exports.insertSubscription(req, res) {
     });
 }
 
-exports.deleteSubscription(req, res) {
+exports.deleteSubscription = function(req, res) {
     var subscription = {
 
     };
@@ -25,7 +25,7 @@ exports.deleteSubscription(req, res) {
     });
 }
 
-exports.getNotificationCallback(req, res) {
+exports.getNotificationCallback = function(req, res) {
 
     res.json({});
 }

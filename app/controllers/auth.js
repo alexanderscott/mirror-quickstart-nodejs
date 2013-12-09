@@ -37,4 +37,4 @@ exports.getOauthCallback = function(req, res, next){
     } else {
         res.redirect('/');
     }
-});
+};

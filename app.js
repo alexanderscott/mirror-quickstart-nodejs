@@ -4,11 +4,10 @@ var express = require('express'),
     http = require('http'),
     fs = require('fs'),
     _ = require("underscore"),
-    mirrorClient = require('../lib/MirrorClient'),
     async = require('async'),
     path = require("path"),
-    config = require('config'),
-    MirrorClient = require('../lib/MirrorClient'),
+    config = require('./config'),
+    MirrorClient = require('./lib/MirrorClient'),
 
     app = express(),
     server;
@@ -16,7 +15,7 @@ var express = require('express'),
 app.locals.mirrorClient = new MirrorClient({
     clientId: config.googleApis.clientId,
     clientSecret: config.googleApis.clientSecret,
-    redirectUri: config.googleApis.redirectUri[0]
+    redirectUri: config.googleApis.redirectUris[0]
 });
 
 // Allow node to be run with proxy passing
@@ -36,7 +35,8 @@ app.configure('production', function(){
 // Compression (gzip)
 app.use( express.compress() );
 app.use( express.methodOverride() );
-app.use( express.bodyParser() );            // Needed to parse POST data sent as JSON payload
+app.use( express.urlencoded() );            // Needed to parse POST data sent as JSON payload
+app.use( express.json() );
 
 // Session setup
 app.use( express.cookieParser( config.cookieSecret ) );           // populates req.signedCookies
@@ -60,6 +60,7 @@ require('./app/routes')(app);
 
 
 server = http.createServer(app).listen( process.env.PORT || config.port);
+console.log((new Date()).toString()+ ":: glasstasks server listening on port::", server.address().port, ", environment:: ", app.settings.env);
 
 
 //function start(){
