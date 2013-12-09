@@ -1,7 +1,7 @@
 "use strict";
 
 var assert = require('assert'),
-    subscriptionsController = require('../controllers/subscriptions');
+    subscriptionsController = require('../app/controllers/subscriptions');
 
 
 describe('subscriptions', function() {

@@ -1,7 +1,7 @@
 "use strict";
 
 var assert = require('assert'),
-    timelineController = require('../controllers/timeline');
+    timelineController = require('../app/controllers/timeline');
 
 
 describe('timeline', function() {

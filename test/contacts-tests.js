@@ -1,7 +1,7 @@
 "use strict";
 
 var assert = require('assert'),
-    contactsController = require('../controllers/contacts');
+    contactsController = require('../app/controllers/contacts');
 
 
 describe('contacts', function() {

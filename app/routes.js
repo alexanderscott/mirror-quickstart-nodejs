@@ -38,5 +38,4 @@ module.exports = function(app) {
 
     app.get('/oauth2callback', authController.getOauthCallback);
 
-
 };

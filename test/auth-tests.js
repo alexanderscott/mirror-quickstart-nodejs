@@ -1,7 +1,7 @@
 "use strict";
 
 var assert = require('assert'),
-    authController = require('../controllers/auth');
+    authController = require('../app/controllers/auth');
 
 
 describe('auth', function() {
