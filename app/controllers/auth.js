@@ -20,7 +20,7 @@ function _tryLogin(client, code, cb){
 
 exports.getOauthCallback = function(req, res, next){
     if(req.query.code) {
-        tryLogin(req.app.locals.mirrorClient, creds, function(err, credsRes){
+        _tryLogin(req.app.locals.mirrorClient, req.query.code, function(err, credsRes){
             if(err) return res.redirect('/');
             next();
         });
@@ -29,7 +29,7 @@ exports.getOauthCallback = function(req, res, next){
             if(err) return res.redirect('/'); 
             var code = require('querystring').stringify( JSON.parse(creds) );  
 
-            tryLogin(req.app.locals.mirrorClient, creds, function(err, credsRes){
+            _tryLogin(req.app.locals.mirrorClient, code, function(err, credsRes){
                 if(err) return res.redirect('/');
                 next();
             });

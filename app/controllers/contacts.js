@@ -21,8 +21,7 @@ exports.insertContact = function(req, res) {
 };
 
 exports.deleteContact = function(req, res) {
-    var contact = { };
-    req.app.locals.mirrorClient.deleteContact(contact, function(err){
+    req.app.locals.mirrorClient.deleteContact( req.param.id, function(err){
         if(err) return res.error(err);
         res.json({});
     });

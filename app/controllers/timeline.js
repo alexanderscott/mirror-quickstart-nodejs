@@ -13,10 +13,7 @@ exports.insertItem = function(req, res) {
 }
 
 exports.deleteItem = function(req, res) {
-    var item = {
-
-    };
-    req.app.locals.mirrorClient.deleteTimelineItem(item, function(err){
+    req.app.locals.mirrorClient.deleteTimelineItem( req.param.id, function(err){
         if(err) return res.error(err);
         res.json({});
     });
@@ -28,19 +25,18 @@ exports.insertAllUsers = function(req, res) {
 }
 
 exports.insertPrettyItem = function(req, res) {
-    //var item = { };
     var item = _und.sample( timelineFixtures );
 
-    req.app.locals.mirrorClient.deleteTimelineItem(item, function(err){
+    req.app.locals.mirrorClient.insertItemItem(item, function(err){
         if(err) return res.error(err);
         res.json({});
     });
 }
 
 exports.insertItemWithAction = function(req, res) {
-    //var item = { };
     var item = _und.sample( timelineFixtures );
-    req.app.locals.mirrorClient.deleteTimelineItem(item, function(err){
+
+    req.app.locals.mirrorClient.insertItemItem(item, function(err){
         if(err) return res.error(err);
         res.json({});
     });

@@ -24,18 +24,18 @@ module.exports = function(app) {
     });
     //app.get('/', contactsController.listContacts);
     app.post('/insert-contact', checkAuth, contactsController.insertContact);
-    app.post('/delete-contact', checkAuth, contactsController.deleteContact);
+    app.post('/delete-contact/:id', checkAuth, contactsController.deleteContact);
 
     app.post('/insert-item', checkAuth, timelineController.insertItem);
     app.post('/insert-item-with-action', checkAuth, timelineController.insertItemWithAction);
     app.post('/insert-pretty-item', checkAuth, timelineController.insertPrettyItem);
     app.post('/insert-all-users', checkAuth, timelineController.insertAllUsers);
-    app.post('/delete-item', checkAuth, timelineController.deleteItem);
+    app.post('/delete-item/:id', checkAuth, timelineController.deleteItem);
     app.get('/attachment-proxy', checkAuth, timelineController.getAttachmentProxy);
 
 
     app.post('/insert-subscription', checkAuth, subscriptionsController.insertSubscription);
-    app.post('/delete-subscription', checkAuth, subscriptionsController.deleteSubscription);
+    app.post('/delete-subscription/:id', checkAuth, subscriptionsController.deleteSubscription);
     app.post('/notify-callback', checkAuth, subscriptionsController.getNotificationCallback);
 
     app.get('/oauth2callback', authController.getOauthCallback);

@@ -5,7 +5,6 @@ var util = require('util'),
     subscriptionFixtures = require('../../fixture/subscriptions');
 
 exports.insertSubscription = function(req, res) {
-    var subscription = { };
     var subscription = _und.sample( subscriptionFixtures );
     req.app.locals.mirrorClient.insertSubscription(subscription, function(err){
         if(err) return res.error(err);
@@ -15,10 +14,7 @@ exports.insertSubscription = function(req, res) {
 }
 
 exports.deleteSubscription = function(req, res) {
-    var subscription = {
-
-    };
-    req.app.locals.mirrorClient.deleteSubscription(subscription, function(err){
+    req.app.locals.mirrorClient.deleteSubscription( req.param.id, function(err){
         if(err) return res.error(err);
         res.json({});
 
