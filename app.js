@@ -21,6 +21,27 @@ app.locals.mirrorClient = new MirrorClient({
 // Allow node to be run with proxy passing
 app.enable('trust proxy');
 
+// Compression (gzip)
+app.use( express.compress() );
+app.use( express.methodOverride() );
+app.use( express.urlencoded() );            // Needed to parse POST data sent as JSON payload
+app.use( express.json() );
+
+// Session setup
+app.use( express.cookieParser( config.cookieSecret ) );           // populates req.signedCookies
+app.use( express.session( { secret: config.sessionSecret }) );         // populates req.session, needed for CSRF
+
+
+// // We need serverside view templating to initially set the CSRF token in the <head> metadata
+// // Otherwise, the html could just be served statically from the public directory
+app.set('view engine', 'html');
+app.set('views', __dirname + '/app/views' );
+app.engine('html', require('hbs').__express);
+
+
+app.use("/public", express.static(__dirname+'/public'));
+app.use(express.csrf());
+
 // Logging config
 app.configure('local', function(){
     app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
@@ -31,27 +52,6 @@ app.configure('development', function(){
 app.configure('production', function(){
     app.use(express.errorHandler());
 });
-
-// Compression (gzip)
-app.use( express.compress() );
-app.use( express.methodOverride() );
-app.use( express.urlencoded() );            // Needed to parse POST data sent as JSON payload
-app.use( express.json() );
-
-// Session setup
-app.use( express.cookieParser( config.cookieSecret ) );           // populates req.signedCookies
-app.use( express.cookieSession( config.sessionSecret ) );         // populates req.session, needed for CSRF
-
-
-// // We need serverside view templating to initially set the CSRF token in the <head> metadata
-// // Otherwise, the html could just be served statically from the public directory
-app.set('view engine', 'html');
-app.set('views', __dirname + '/app/views' );
-app.engine('html', require('hbs').__express);
-
-
-app.use(express.static(__dirname+'/public'));
-app.use(express.csrf());
 
 
 // Setup routes

@@ -9,221 +9,111 @@
         <meta name="csrf-token" content="{{csrfToken}}">
     </head>
     <body>
-        <div class="navbar navbar-inverse navbar-fixed-top">
-            <div class="navbar-inner">
-                <div class="container">
-                    <a class="brand" href="#">Glassware Starter Project: Node.js Edition</a>
-
-                    <div class="nav-collapse collapse">
-                        <form class="navbar-form pull-right" action="/signout" method="post">
-                            <button type="submit" class="btn">Sign out</button>
-                        </form>
-                    </div>
+        <div class="navbar navbar-fixed-top navbar-inverse" role="navigation">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">Mirror QuickStart - Node.js</a>
                 </div>
-            </div>
-        </div>
+            </div><!-- /.container -->
+        </div><!-- /.navbar -->
 
         <div class="container">
 
-            {{#if message}}
-            <div class="alert alert-info">{{ message }}</div>
-            {{/if}}
-
-            <h1>Your Recent Timeline</h1>
-            <div class="row">
-
-                <div style="margin-top: 5px;">
-
-                    {{#if timelineItems}}
-                    {{#each timelineItems}}
-                    <div class="span4">
-                        <table class="table table-bordered">
-                            <tbody>
-                                <tr>
-                                    <th>ID</th>
-                                    <td>{{ this.id }}</td>
-                                </tr>
-                                <tr>
-                                    <th>Text</th>
-                                    <td>{{ this.text|e }}</td>
-                                </tr>
-                                <tr>
-                                    <th>HTML</th>
-                                    <td>{{ this.html|e }}</td>
-                                </tr>
-                                <tr>
-                                    <th>Attachments</th>
-                                    <td>
-                                        {#each this.attachments }}
-                                        {{#if this.contentType.startswith('image') }}
-                                        <img src="/attachmentproxy?attachment={{ this.id }}&this={{ this.id }}">
-                                        {{else}}
-                                        <a href="/attachmentproxy?attachment={{ this.id }}&this={{ this.id }}">Download</a>
-                                        {{/if}}
-                                        {{/each}}
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td colspan="2">
-                                        <form action="/" method="post">
-                                            <input type="hidden" name="itemId" value="{{ this.id }}">
-                                            <input type="hidden" name="operation" value="deleteTimelineItem">
-                                            <button class="btn btn-block btn-danger" type="submit">
-                                                Delete Item
-                                            </button>
-                                        </form>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    {{/each}}
-                    {{ else }}
-                    <div class="span12">
-                        <div class="alert alert-info">
-                            You haven't added any items to your timeline yet. Use the controls
-                            below to add something!
-                        </div>
-                    </div>
-                    {{/if}}
-                </div>
+            <div id="header-alert" class="alert alert-info alert-dismissable hidden">
+              <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+              <strong>Deleted!</strong> Item was deleted from your timeline.
             </div>
 
-            <div class="row">
-                <div class="span4">
-                    <h2>Timeline</h2>
+            <div class="row row-offcanvas row-offcanvas-right">
 
-                    <p>When you first sign in, this Glassware inserts a welcome message. Use
-                        these controls to insert more items into your timeline. Learn more about
-                        the timeline APIs
-                        <a href="https://developers.google.com/glass/timeline">here</a>.</p>
-
-                    <form action="/" method="post">
-                        <input type="hidden" name="operation" value="insertItem">
-                        <textarea name="message" class="span4">Hello World!</textarea><br/>
-                        <button class="btn btn-block" type="submit">
-                            Insert the above message
-                        </button>
-                    </form>
-
-                    <form action="/" method="post">
-                        <input type="hidden" name="operation" value="insertItem">
-                        <input type="hidden" name="message" value="Chipotle says 'hi'!">
-                        <input type="hidden" name="imageUrl"
-                        value="/public/images/chipotle-tube-640x360.jpg">
-                        <input type="hidden" name="contentType" value="image/jpeg">
-
-                        <button class="btn btn-block" type="submit">
-                            Insert a picture
-                            <img class="button-icon" src="/public/images/chipotle-tube-640x360.jpg">
-                        </button>
-                    </form>
-                    <form action="/" method="post">
-                        <input type="hidden" name="operation" value="insertPaginatedItem">
-                        <button class="btn btn-block" type="submit">
-                            Insert a card with long paginated HTML</button>
-                    </form>
-                    <form action="/" method="post">
-                        <input type="hidden" name="operation" value="insertItemWithAction">
-                        <button class="btn btn-block" type="submit">
-                            Insert a card you can reply to
-                        </button>
-                    </form>
-                    <hr>
-                    <form action="/" method="post">
-                        <input type="hidden" name="operation" value="insertItemAllUsers">
-                        <button class="btn btn-block" type="submit">
-                            Insert a card to all users
-                        </button>
-                    </form>
-
-                </div>
-
-                <div class="span4">
-                    <h2>Contacts</h2>
-                    <p>By default, this project inserts a single contact that accepts
-                        all content types. Learn more about contacts
-                        <a href="https://developers.google.com/glass/contacts">here</a>.</p>
-
-                    {{#if contact}}
-                    <form action="/" method="post">
-                        <input type="hidden" name="operation" value="deleteContact">
-                        <input type="hidden" name="id" value="python-quick-start">
-                        <button class="btn btn-block btn-danger" type="submit">
-                            Delete Python Quick Start Contact
-                        </button>
-                    </form>
-                    {{else}}
-                    <form action="/" method="post">
-                        <input type="hidden" name="operation" value="insertContact">
-                        <input type="hidden" name="imageUrl"
-                        value="/public/images/python.png">
-                        <input type="hidden" name="name" value="Python Quick Start">
-                        <input type="hidden" name="id" value="python-quick-start">
-                        <button class="btn btn-block btn-success" type="submit">
-                            Insert Python Quick Start Contact
-                        </button>
-                    </form>
-                    {{/if}}
-
-                    <h3>Voice Commands</h3>
-                    <p>The "Python Quick Start" contact also accepts the <strong>take a
-                            note</strong> command. Take a note with the "Python Quick Start"
-                        contact and the cat in the server will record your note and reply
-                        with one of a few cat utterances.</p>
-                </div>
-
-                <div class="span4">
-                    <h2>Subscriptions</h2>
-
-                    <p>
-                        By default a subscription is inserted for changes to the
-                        <code>timeline</code> collection. Learn more about subscriptions
-                        <a href="https://developers.google.com/glass/subscriptions">here</a>.
+                <div class="col-xs-12 col-sm-9">
+                    <p class="pull-right visible-xs">
+                        <button type="button" class="btn btn-primary btn-xs" data-toggle="offcanvas">Toggle nav</button>
                     </p>
-
-                    <div class="alert alert-info">
-                        Note: Subscriptions require SSL. They will not work on localhost.
+                    <div class="jumbotron">
+                        <h1>Hello, Glass!</h1>
+                        <p>This is an example to show the potential of an offcanvas layout pattern in Bootstrap. Try some responsive-range viewport sizes to see it in action.</p>
                     </div>
+                    <div class="row">
+                        <div class="col-6 col-sm-6 col-lg-4">
+                            <h2>Timeline</h2>
+                            <p>When you first sign in, this Glassware inserts a welcome message. Use these controls to insert more items into your timeline. Learn more about the timeline APIs <a href="https://developers.google.com/glass/timeline" target="_blank">here</a>.</p>
+                            <form id="timeline-insert-message-form" action="/insert-item" method="post" class="form" role="form">
+                                <textarea class="form-control" rows="3" name="timeline-message" placeholder="Glassify me, Captain!" style="resize:none"></textarea>
+                                <button class="btn btn-primary btn-block" type="submit" role="button">Insert the above message</button>
+                            </form>
+                            <br>
+                            <form id="timeline-insert-picture-form" action='/insert-item' method='post'>
+                                <input name='message' type='hidden' value='Chipotle says hi!'>
+                                <input name='imageUrl' type='hidden' value='/public/assets/images/chipotle-tube-640x360.jpg'>
+                                <input name='contentType' type='hidden' value='image/jpeg'>
+                                <button class='btn btn-block btn-default' type='submit'>
+                                    Insert a picture
+                                    <img class='button-icon' src='/public/assets/images/chipotle-tube-640x360.jpg'>
+                                </button>
+                            </form>
+                            <br>
+                            <form id="timeline-insert-action-form" action='/insert-item-with-action' method='post'>
+                                <button class='btn btn-default btn-block' type='submit'>
+                                    Insert a card you can reply to
+                                </button>
+                            </form>
+                            <br>
+                            <form id="timeline-insert-all-form" action='/insert-all-users' method='post'>
+                                <button class='btn btn-default btn-block' type='submit'>
+                                    Insert a card to all users
+                                </button>
+                            </form>
+                        </div><!--/span-->
+                        <div class="col-6 col-sm-6 col-lg-4">
+                            <h2>Contacts</h2>
+                            <p>By default, this project inserts a single contact that accepts all content types. Learn more about contacts <a href="https://developers.google.com/glass/contacts" target="_blank">here</a>.</p>
+                            <br>
+                            <form id="contacts-delete-form" action="/delete-contact" method="post" class="form" role="form">
+                                <p><button class="btn btn-danger" type="submit" role="button">Delete Node.js QuickStart Contact</button></p>
+                            </form>
+                        </div><!--/span-->
+                        <div class="col-6 col-sm-6 col-lg-4">
+                            <h2>Subscriptions</h2>
+                            <p>By default a subscription is inserted for changes to the timeline collection. Learn more about subscriptions <a href="https://developers.google.com/glass/subscriptions" target="_blank">here</a>.</p>
+                            <p class="alert alert-info">Note: Subscriptions require SSL. They will not work on localhost.</p>
+                            <form id="subscription-timeline-updates-form" action="/insert-subscription" method="post" class="form" role="form">
+                                <input name="subscriptionId" type="hidden" value="timeline">
+                                <button class="btn btn-block btn-success" type="submit">Subscribe to timeline updates</button>
+                            </form>
+                            <br>
+                            <form id="subscription-location-updates-form" action="/insert-subscription" method="post" class="form" role="form">
+                                <input name="subscriptionId" type="hidden" value="locations">
+                                <button class="btn btn-block btn-success" type="submit">Subscribe to location updates</button>
+                            </form>
 
-                    {{#if timelineSubscriptionExists}}
-                    <form action="/" method="post">
-                        <input type="hidden" name="subscriptionId" value="timeline">
-                        <input type="hidden" name="operation" value="deleteSubscription">
-                        <button class="btn btn-block btn-danger" type="submit">
-                            Unsubscribe from timeline updates
-                        </button>
-                    </form>
-                    {{ else }}
-                    <form action="/" method="post">
-                        <input type="hidden" name="operation" value="insertSubscription">
-                        <input type="hidden" name="collection" value="timeline">
-                        <button class="btn btn-block btn-success" type="submit">
-                            Subscribe to timeline updates
-                        </button>
-                    </form>
-                    {{/if}}
+                        </div><!--/span-->
+                    </div><!--/row-->
+                </div><!--/span-->
 
-                    {{#if locationSubscriptionExists}}
-                    <form action="/" method="post">
-                        <input type="hidden" name="subscriptionId" value="locations">
-                        <input type="hidden" name="operation" value="deleteSubscription">
-                        <button class="btn btn-block btn-danger" type="submit">
-                            Unsubscribe from location updates
-                        </button>
-                    </form>
-                    {{else}}
-                    <form action="/" method="post">
-                        <input type="hidden" name="operation" value="insertSubscription">
-                        <input type="hidden" name="collection" value="locations">
-                        <button class="btn btn-block btn-success" type="submit">
-                            Subscribe to location updates
-                        </button>
-                    </form>
-                    {{/if}}
-                </div>
-            </div>
-        </div>
+                <div class="col-xs-6 col-sm-3 sidebar-offcanvas panel panel-default" id="sidebar" role="navigation" style="padding:0;">
+                    <div class="panel-heading">Recent Timeline Updates</div>
+                    <div class="list-group">
+                        <a href="#" data-item="itemId" class="list-group-item">Link</a>
+                        <a href="#" data-item="itemId" class="list-group-item">Link</a>
+                        <a href="#" data-item="itemId" class="list-group-item">Link</a>
+                    </div>
+                </div><!--/span-->
+            </div><!--/row-->
+
+            <hr>
+
+            <footer>
+                <p>&copy; Alex Ehrnschwender 2013</p>
+            </footer>
+
+        </div><!--/.container-->
 
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
         <script src="/public/vendor/bootstrap/js/bootstrap.min.js"></script>
