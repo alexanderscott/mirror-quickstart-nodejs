@@ -1,7 +1,7 @@
 "use strict";
 
 var assert = require('assert'),
-    timelineFixtures = require('../fixture/timelineItems'),
+    timelineFixtures = require('./fixtures/timelineItems'),
     _und = require('underscore'),
     timelineController = require('../app/controllers/timeline');
 
