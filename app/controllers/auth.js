@@ -2,6 +2,7 @@
 
 var util = require('util'),
     OAuthUtils = require('../../util/OAuthUtils'),
+    async = require('async'),
     _und = require('underscore');
 
 var CredentialsStore = require('../../lib/CredentialsStore'),
@@ -21,11 +22,12 @@ function _tryLogin(mirrorClient, code, cb){
 
             console.log("getUserInfo res:", res); 
 
-            credentialsStore.storeCredentials( res.id, creds );
-
-            mirrorClient.createClient(function(err, res){
+            credentialsStore.storeCredentials( res.id, creds, function(err, res){
                 if(err) return cb(err);
-                cb(null, res);
+                mirrorClient.createClient(function(err, res){
+                    if(err) return cb(err);
+                    cb(null, res);
+                });
             });
         });
     });

@@ -29,17 +29,15 @@ app.use( express.urlencoded() );            // Needed to parse POST data sent as
 app.use( express.json() );
 
 // Session setup
-app.use( express.cookieParser( config.cookieSecret ) );           // populates req.signedCookies
+app.use( express.cookieParser( config.cookieSecret ) );                 // populates req.signedCookies
 app.use( express.session( { secret: config.sessionSecret }) );         // populates req.session, needed for CSRF
 
-
-// // We need serverside view templating to initially set the CSRF token in the <head> metadata
-// // Otherwise, the html could just be served statically from the public directory
+// We use serverside view templating to set the CSRF token and render messages/results
 app.set('view engine', 'html');
 app.set('views', __dirname + '/app/views' );
 app.engine('html', require('hbs').__express);
 
-
+// Public static assets served from /public directory
 app.use("/public", express.static(__dirname+'/public'));
 app.use(express.csrf());
 
@@ -59,7 +57,7 @@ app.configure('production', function(){
 app.use( app.router );
 require('./app/routes')(app);
 
-
+// Run the server
 server = http.createServer(app).listen( process.env.PORT || config.port);
 console.log((new Date()).toString()+ ":: glasstasks server listening on port::", server.address().port, ", environment:: ", app.settings.env);
 

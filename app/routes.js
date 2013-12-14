@@ -19,7 +19,13 @@ module.exports = function(app) {
         }
     }
 
-    app.get("/", function(req, res){
+    function renderHome(err, req, res, next){
+        
+        if(err) return res.render('index', { csrfToken: req.csrfToken(), error: err }); 
+        else return res.render('index'); 
+    }
+
+    app.get('/', checkAuth, function(req, res){
         res.render('index', { csrfToken: req.csrfToken() });
     });
     //app.get('/', contactsController.listContacts);
