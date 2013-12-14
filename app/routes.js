@@ -38,6 +38,6 @@ module.exports = function(app) {
     app.get('/subscriptions/:id', checkAuth, subscriptionsController.getSubscription);
     app.post('/notify-callback', checkAuth, subscriptionsController.getNotificationCallback, timelineController.listItems);
 
-    app.get('/oauth2callback', authController.getOauthCallback);
+    app.get('/oauth2callback', authController.getOauthCallback, timelineController.listItems);
 
 };

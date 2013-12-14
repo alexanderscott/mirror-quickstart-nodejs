@@ -38,7 +38,7 @@ app.use( express.session( { secret: config.sessionSecret }) );         // popula
 app.set('view engine', 'html');
 app.set('views', __dirname + '/app/views' );
 app.engine('html', hbs.__express);
-hbs.registerPartials(__dirname + '/views/partials');
+hbs.registerPartials(__dirname + '/app/views/partials');
 
 // Public static assets served from /public directory
 app.use("/public", express.static(__dirname+'/public'));
@@ -64,7 +64,7 @@ app.use( function(err, req, res, next){
     res.locals.message = err || res.locals.message;
     res.locals.alert = (err ? 'danger' : 'success');
     res.locals.timelineItems = req.session.timelineItems;
-    res.render('index');
+    return res.render('index');
 });
 
 // Run the server
