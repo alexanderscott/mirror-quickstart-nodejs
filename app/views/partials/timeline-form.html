@@ -1,0 +1,33 @@
+<h2>Timeline</h2>
+<p>When you first sign in, this Glassware inserts a welcome message. Use these controls to insert more items into your timeline. Learn more about the timeline APIs <a href="https://developers.google.com/glass/timeline" target="_blank">here</a>.</p>
+<form id="timeline-insert-message-form" action="/insert-item" method="post" class="form" role="form">
+    <input type='hidden' name="_csrf" value="{{csrfToken}}">
+    <textarea class="form-control" rows="3" name="text" placeholder="Glassify me, Captain!" style="resize:none"></textarea>
+    <button class="btn btn-primary btn-block" type="submit" role="button">Insert the above message</button>
+</form>
+<br>
+<form id="timeline-insert-picture-form" action='/insert-item' method='post'>
+    <input type='hidden' name="_csrf" value="{{csrfToken}}">
+    <input name='message' type='hidden' value='Chipotle says hi!'>
+    <input name='imageUrl' type='hidden' value='/public/assets/images/chipotle-tube-640x360.jpg'>
+    <input name='contentType' type='hidden' value='image/jpeg'>
+    <button class='btn btn-block btn-default' type='submit'>
+        Insert a picture
+        <img class='button-icon' src='/public/assets/images/chipotle-tube-640x360.jpg'>
+    </button>
+</form>
+<br>
+<form id="timeline-insert-action-form" action='/insert-item-with-action' method='post'>
+    <input type='hidden' name="_csrf" value="{{csrfToken}}">
+    <button class='btn btn-default btn-block' type='submit'>
+        Insert a card you can reply to
+    </button>
+</form>
+<br>
+<form id="timeline-insert-all-form" action='/insert-all-users' method='post'>
+    <input type='hidden' name="_csrf" value="{{csrfToken}}">
+    <button class='btn btn-default btn-block' type='submit'>
+        Insert a card to all users
+    </button>
+</form>
+

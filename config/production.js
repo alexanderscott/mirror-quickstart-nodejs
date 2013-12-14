@@ -2,6 +2,7 @@
 
 // Default config options go here
 module.exports = {
+    ssl: true,
     port: 8888,
     sessionSecret: '[[PRODUCTION_SESSION_SECRET]]',
     googleApis: {

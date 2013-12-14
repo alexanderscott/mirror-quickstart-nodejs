@@ -1,0 +1,14 @@
+<h2>Contacts</h2>
+<p>By default, this project inserts a single contact that accepts all content types. Learn more about contacts <a href="https://developers.google.com/glass/contacts" target="_blank">here</a>.</p>
+<br>
+<form id="contacts-insert-form" action="/insert-contact" method="post" class="form" role="form">
+    <input type='hidden' name="_csrf" value="{{csrfToken}}">
+    <input type="hidden" name="id" value="nodejs-quick-start">
+    <p><button class="btn btn-success" type="submit" role="button">Insert Node.js QuickStart Contact</button></p>
+</form>
+<form id="contacts-delete-form" action="/delete-contact" method="post" class="form" role="form">
+    <input type='hidden' name="_csrf" value="{{csrfToken}}">
+    <input type="hidden" name="id" value="nodejs-quick-start">
+    <input type="hidden" name="displayName" value="Node.js QuickStart">
+    <p><button class="btn btn-danger" type="submit" role="button">Delete Node.js QuickStart Contact</button></p>
+</form>

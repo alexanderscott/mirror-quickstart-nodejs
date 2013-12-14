@@ -3,6 +3,7 @@
 // Default config options go here
 module.exports = {
     host: 'localhost',
+    ssl: false,
     googleApis: {
         scope: [
             'https://www.googleapis.com/auth/glass.timeline',

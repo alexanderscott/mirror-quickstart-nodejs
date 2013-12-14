@@ -3,11 +3,13 @@
 var express = require('express'),
     http = require('http'),
     fs = require('fs'),
-    _ = require("underscore"),
+    _und = require("underscore"),
     async = require('async'),
     path = require("path"),
     config = require('./config'),
+
     MirrorClient = require('./lib/MirrorClient'),
+    hbs = require('hbs'),
 
     app = express(),
     server;
@@ -35,7 +37,8 @@ app.use( express.session( { secret: config.sessionSecret }) );         // popula
 // We use serverside view templating to set the CSRF token and render messages/results
 app.set('view engine', 'html');
 app.set('views', __dirname + '/app/views' );
-app.engine('html', require('hbs').__express);
+app.engine('html', hbs.__express);
+hbs.registerPartials(__dirname + '/views/partials');
 
 // Public static assets served from /public directory
 app.use("/public", express.static(__dirname+'/public'));
@@ -56,6 +59,13 @@ app.configure('production', function(){
 // Setup routes
 app.use( app.router );
 require('./app/routes')(app);
+app.use( function(err, req, res, next){
+    console.log('render index');
+    res.locals.message = err || res.locals.message;
+    res.locals.alert = (err ? 'danger' : 'success');
+    res.locals.timelineItems = req.session.timelineItems;
+    res.render('index');
+});
 
 // Run the server
 server = http.createServer(app).listen( process.env.PORT || config.port);

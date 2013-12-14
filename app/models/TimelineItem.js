@@ -4,6 +4,6 @@ module.exports = {
     id: '',
     text: '',
     speakableText: '',
-    notification: '',
+    notification: {},
     menuItems: []
 };

@@ -3,6 +3,6 @@
 module.exports = {
     id: '',
     userToken: '',
-    collection: '',     // locations, timeline
+    collection: 'timeline',     // locations, timeline
     callbackUrl: ''
 };

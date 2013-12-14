@@ -2,27 +2,44 @@
 
 var util = require('util'),
     _und = require('underscore'),
+    config = require('../../config'),
     ContactModel = require('../models/Contact'),
     contactFixtures = require('../../fixture/contacts');
 
-exports.listContacts = function(req, res) {
+exports.listContacts = function(req, res, next) {
     req.app.locals.mirrorClient.listContacts(function(err, contacts){
-        if(err) return res.render('index', { alert: 'error', message: 'Error listing contacst.' });
-        res.render('index', { contacts: contacts });
+        if(err) return next('Error listing contacst.');
+        res.locals.contacts = contacts;
+        next();
     });
 };
 
-exports.insertContact = function(req, res) {
-    var contact = _und.pick( req.body, ContactModel );
+exports.insertContact = function(req, res, next) {
+    var contact = _und.pick( req.body, Object.keys(ContactModel) );
+    contact.imageUrls = [
+        (config.ssl ? 'https' : 'http' ) + '://' + config.host + config.port + '/assets/images/chipotle-tube-640x360.jpg' 
+    ];
+
     req.app.locals.mirrorClient.insertContact(contact, function(err, insertedContact){
-        if(err) return res.render('index', { alert: 'error', message: 'Error inserting contact.' });
-        res.render('index', { message: 'Successfully inserted contact with id ' + insertedContact.id });
+        if(err) return next('Error inserting contact.');
+        res.locals.message = 'Successfully inserted contact';
+        res.locals.content = { contactItem: insertedContact };
+        next();
     });
 };
 
-exports.deleteContact = function(req, res) {
+exports.getContact = function(req, res, next){
+    req.app.locals.mirrorClient.getContact( req.params.id, function(err, contact){
+        if(err) return next('Error getting contact.');
+        res.locals.content = { contact_item: contact };
+        next();
+    });
+};
+
+exports.deleteContact = function(req, res, next) {
     req.app.locals.mirrorClient.deleteContact( req.body.id, function(err){
-        if(err) return res.render('index', { alert: 'error', message: 'Error deleting contact.' });
-        res.render('index', { message: 'Successfully deleted contact with id ' + req.body.id + '.' });
+        if(err) return next('Error deleting contact.');
+        res.locals.message = 'Successfully deleted contact.';
+        next();
     });
 };

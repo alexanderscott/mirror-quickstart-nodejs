@@ -25,9 +25,9 @@
 
         <div class="container">
 
-            <div id="header-alert" class="alert alert-info alert-dismissable hidden">
+            <div id="header-alert" class="alert alert-{{#if alert}}{{alert}}{{else}}info{{/if}} alert-dismissable {{#unless message}} hidden {{/unless}}">
               <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-              <strong>Deleted!</strong> Item was deleted from your timeline.
+                {{message}}
             </div>
 
             <div class="row row-offcanvas row-offcanvas-right">
@@ -37,79 +37,36 @@
                         <button type="button" class="btn btn-primary btn-xs" data-toggle="offcanvas">Toggle nav</button>
                     </p>
                     <div class="jumbotron">
+                        {{#if content}}
+                            {{#if content.timelineItem}}
+                                {{> timeline_item}}
+                            {{/if}}
+                            {{#if content.contactItem}}
+                                {{> contact_item}}
+                            {{/if}}
+                            {{#if content.subscriptionItem}}
+                                {{> subscription_item}}
+                            {{/if}}
+                        {{else}}
                         <h1>Hello, Glass!</h1>
-                        <p>This is an example to show the potential of an offcanvas layout pattern in Bootstrap. Try some responsive-range viewport sizes to see it in action.</p>
+                        <p>This is an example application to demo the use of the Mirror API in Node.js.</p>
+                        {{/if}}
                     </div>
                     <div class="row">
                         <div class="col-6 col-sm-6 col-lg-4">
-                            <h2>Timeline</h2>
-                            <p>When you first sign in, this Glassware inserts a welcome message. Use these controls to insert more items into your timeline. Learn more about the timeline APIs <a href="https://developers.google.com/glass/timeline" target="_blank">here</a>.</p>
-                            <form id="timeline-insert-message-form" action="/insert-item" method="post" class="form" role="form">
-                                <input type='hidden' name="_csrf" value="{{csrfToken}}">
-                                <textarea class="form-control" rows="3" name="timeline-message" placeholder="Glassify me, Captain!" style="resize:none"></textarea>
-                                <button class="btn btn-primary btn-block" type="submit" role="button">Insert the above message</button>
-                            </form>
-                            <br>
-                            <form id="timeline-insert-picture-form" action='/insert-item' method='post'>
-                                <input type='hidden' name="_csrf" value="{{csrfToken}}">
-                                <input name='message' type='hidden' value='Chipotle says hi!'>
-                                <input name='imageUrl' type='hidden' value='/public/assets/images/chipotle-tube-640x360.jpg'>
-                                <input name='contentType' type='hidden' value='image/jpeg'>
-                                <button class='btn btn-block btn-default' type='submit'>
-                                    Insert a picture
-                                    <img class='button-icon' src='/public/assets/images/chipotle-tube-640x360.jpg'>
-                                </button>
-                            </form>
-                            <br>
-                            <form id="timeline-insert-action-form" action='/insert-item-with-action' method='post'>
-                                <input type='hidden' name="_csrf" value="{{csrfToken}}">
-                                <button class='btn btn-default btn-block' type='submit'>
-                                    Insert a card you can reply to
-                                </button>
-                            </form>
-                            <br>
-                            <form id="timeline-insert-all-form" action='/insert-all-users' method='post'>
-                                <input type='hidden' name="_csrf" value="{{csrfToken}}">
-                                <button class='btn btn-default btn-block' type='submit'>
-                                    Insert a card to all users
-                                </button>
-                            </form>
+                            {{> timeline_form}}
                         </div><!--/span-->
                         <div class="col-6 col-sm-6 col-lg-4">
-                            <h2>Contacts</h2>
-                            <p>By default, this project inserts a single contact that accepts all content types. Learn more about contacts <a href="https://developers.google.com/glass/contacts" target="_blank">here</a>.</p>
-                            <br>
-                            <form id="contacts-delete-form" action="/delete-contact" method="post" class="form" role="form">
-                                <p><button class="btn btn-danger" type="submit" role="button">Delete Node.js QuickStart Contact</button></p>
-                            </form>
+                            {{> contacts_form}}
                         </div><!--/span-->
                         <div class="col-6 col-sm-6 col-lg-4">
-                            <h2>Subscriptions</h2>
-                            <p>By default a subscription is inserted for changes to the timeline collection. Learn more about subscriptions <a href="https://developers.google.com/glass/subscriptions" target="_blank">here</a>.</p>
-                            <p class="alert alert-info">Note: Subscriptions require SSL. They will not work on localhost.</p>
-                            <form id="subscription-timeline-updates-form" action="/insert-subscription" method="post" class="form" role="form">
-                                <input type='hidden' name="_csrf" value="{{csrfToken}}">
-                                <input name="subscriptionId" type="hidden" value="timeline">
-                                <button class="btn btn-block btn-success" type="submit">Subscribe to timeline updates</button>
-                            </form>
-                            <br>
-                            <form id="subscription-location-updates-form" action="/insert-subscription" method="post" class="form" role="form">
-                                <input type='hidden' name="_csrf" value="{{csrfToken}}">
-                                <input name="subscriptionId" type="hidden" value="locations">
-                                <button class="btn btn-block btn-success" type="submit">Subscribe to location updates</button>
-                            </form>
-
+                            {{> subscriptions_form}}
                         </div><!--/span-->
                     </div><!--/row-->
                 </div><!--/span-->
 
                 <div class="col-xs-6 col-sm-3 sidebar-offcanvas panel panel-default" id="sidebar" role="navigation" style="padding:0;">
-                    <div class="panel-heading">Recent Timeline Updates</div>
-                    <div class="list-group">
-                        <a href="#" data-item="itemId" class="list-group-item">Link</a>
-                        <a href="#" data-item="itemId" class="list-group-item">Link</a>
-                        <a href="#" data-item="itemId" class="list-group-item">Link</a>
-                    </div>
+                    {{> timeline_list}}
                 </div><!--/span-->
             </div><!--/row-->
 
