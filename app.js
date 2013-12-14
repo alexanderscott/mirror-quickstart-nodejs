@@ -15,7 +15,8 @@ var express = require('express'),
 app.locals.mirrorClient = new MirrorClient({
     clientId: config.googleApis.clientId,
     clientSecret: config.googleApis.clientSecret,
-    redirectUri: config.googleApis.redirectUris[0]
+    redirectUri: config.googleApis.redirectUris[0],
+    scope: config.googleApis.scope.join(' ')
 });
 
 // Allow node to be run with proxy passing

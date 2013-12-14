@@ -10,14 +10,14 @@ var util = require('util'),
 
 module.exports = function(app) {
 
-    var checkAuth = function(req, res, next) {
+    function checkAuth(req, res, next) {
         if( !app.locals.mirrorClient.mirror ) {
             return res.redirect( app.locals.mirrorClient.getAuthUrl() );
             //return res.send(401, { error: "Not authorized." });
         } else {
             next(); 
         }
-    };
+    }
 
     app.get("/", function(req, res){
         res.render('index', { csrfToken: req.csrfToken() });

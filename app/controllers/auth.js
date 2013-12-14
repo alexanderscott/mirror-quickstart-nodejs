@@ -1,18 +1,32 @@
 "use strict";
 
 var util = require('util'),
+    OAuthUtils = require('../../util/OAuthUtils'),
     _und = require('underscore');
 
 var CredentialsStore = require('../../lib/CredentialsStore'),
     credentialsStore = new CredentialsStore({});
 
-function _tryLogin(client, code, cb){
-    mirrorClient.getTokens( req.query.code, function(err, creds){
+function _tryLogin(mirrorClient, code, cb){
+    console.log("trying getTokens with code:: " + code );
+    mirrorClient.getTokens(code, function(err, creds){
         if(err) return cb(err);
-        credentialsStore.storeCredentials( creds.userId, creds );
-        client.createClient(function(err, res){
+
+        console.log(" getTokens returned creds: ", creds);
+
+        mirrorClient.oauth2Client.credentials = creds;
+
+        OAuthUtils.getUserInfo( mirrorClient.oauth2Client, creds, function(err, res){
             if(err) return cb(err);
-            cb(null, res);
+
+            console.log("getUserInfo res:", res); 
+
+            credentialsStore.storeCredentials( res.id, creds );
+
+            mirrorClient.createClient(function(err, res){
+                if(err) return cb(err);
+                cb(null, res);
+            });
         });
     });
 }
@@ -22,7 +36,8 @@ exports.getOauthCallback = function(req, res, next){
     if(req.query.code) {
         _tryLogin(req.app.locals.mirrorClient, req.query.code, function(err, credsRes){
             if(err) return res.redirect('/');
-            next();
+            res.redirect('/');
+            //next();
         });
     } else if(req.session.userId){
         credentialsStore.getStoredCredentials( req.session.userId, function(err, creds){
@@ -31,7 +46,8 @@ exports.getOauthCallback = function(req, res, next){
 
             _tryLogin(req.app.locals.mirrorClient, code, function(err, credsRes){
                 if(err) return res.redirect('/');
-                next();
+                res.redirect('/');
+                //next();
             });
         });
     } else {
