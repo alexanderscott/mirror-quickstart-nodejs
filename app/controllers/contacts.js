@@ -31,7 +31,7 @@ exports.insertContact = function(req, res, next) {
 exports.getContact = function(req, res, next){
     req.app.locals.mirrorClient.getContact( req.params.id, function(err, contact){
         if(err) return next('Error getting contact.');
-        res.locals.content = { contact_item: contact };
+        res.locals.content = { contactItem: contact };
         next();
     });
 };
