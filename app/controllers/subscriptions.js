@@ -26,6 +26,15 @@ exports.deleteSubscription = function(req, res, next) {
     });
 };
 
+exports.updateSubscription = function(req, res, next){
+    var subscription = _und.pick( req.body, Object.keys(SubscriptionModel) );
+    req.app.locals.mirrorClient.updateSubscription( subscription, function(err, subscription){
+        if(err) return next('Error getting subscription.');
+        res.locals.content = { subscriptionItem: subscription };
+        next();
+    });
+};
+
 exports.getSubscription = function(req, res, next){
     req.app.locals.mirrorClient.getSubscription( req.params.id, function(err, subscription){
         if(err) return next('Error getting subscription.');

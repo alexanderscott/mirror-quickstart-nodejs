@@ -35,6 +35,24 @@ exports.getContact = function(req, res, next){
     });
 };
 
+exports.patchContact = function(req, res, next){
+    var contact = _und.pick( req.body, Object.keys(ContactModel) );
+    req.app.locals.mirrorClient.patchContact( contact, function(err, contact){
+        if(err) return next('Error getting contact.');
+        res.locals.content = { contactItem: contact };
+        next();
+    });
+};
+
+exports.updateContact = function(req, res, next){
+    var contact = _und.pick( req.body, Object.keys(ContactModel) );
+    req.app.locals.mirrorClient.updateContact( contact, function(err, contact){
+        if(err) return next('Error getting contact.');
+        res.locals.content = { contactItem: contact };
+        next();
+    });
+};
+
 exports.deleteContact = function(req, res, next) {
     req.app.locals.mirrorClient.deleteContact( req.body.id, function(err){
         if(err) return next('Error deleting contact.');

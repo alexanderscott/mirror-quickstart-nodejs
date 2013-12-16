@@ -15,7 +15,7 @@ module.exports = function(app) {
 
             // If the Mirror client has not been established, redirect user to Google auth URL
             console.log("redirecting to::" +  req.app.locals.mirrorClient.getAuthUrl() );
-            return res.redirect( req.app.locals.mirrorClient.getAuthUrl() );
+            res.redirect( req.app.locals.mirrorClient.getAuthUrl() );
 
         } else next(); 
     }
@@ -23,12 +23,12 @@ module.exports = function(app) {
     function renderIndex(req, res, next){ res.render('index'); }
     function redirectIndex(req, res, next){ res.redirect('/'); }
 
-    app.get('/', checkAuth, timelineController.listItems, renderIndex);
-    app.get('/timeline/items/:id', checkAuth, timelineController.getItem, timelineController.listItems, renderIndex);
-    app.post('/timeline/insert', checkAuth, timelineController.insertItem);
-    app.post('/timeline/delete', checkAuth, timelineController.deleteItem);
-    app.post('/timeline/patch', checkAuth, timelineController.patchItem);
-    app.post('/timeline/update', checkAuth, timelineController.updateItem);
+    app.get('/', checkAuth, timelineController.listTimelineItems, renderIndex);
+    app.get('/timeline/items/:id', checkAuth, timelineController.getTimelineItem, timelineController.listTimelineItems, renderIndex);
+    app.post('/timeline/insert', checkAuth, timelineController.insertTimelineItem);
+    app.post('/timeline/delete', checkAuth, timelineController.deleteTimelineItem);
+    app.post('/timeline/patch', checkAuth, timelineController.patchTimelineItem);
+    app.post('/timeline/update', checkAuth, timelineController.updateTimelineItem);
 
     app.get('/attachment-proxy', checkAuth, timelineController.getAttachmentProxy);
 
@@ -45,7 +45,7 @@ module.exports = function(app) {
     app.post('/subscriptions/update', checkAuth, subscriptionsController.updateSubscription);
     app.post('/subscriptions/delete', checkAuth, subscriptionsController.deleteSubscription);
 
-    app.post('/notify-callback', checkAuth, subscriptionsController.getNotificationCallback, timelineController.listItems);
+    app.post('/notify-callback', checkAuth, subscriptionsController.getNotificationCallback, timelineController.listTimelineItems);
 
     app.get('/oauth2callback', authController.getOauthCallback);
 
