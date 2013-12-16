@@ -21,7 +21,7 @@
         </tr>
         <tr>
             <td colspan="2">
-                <form id="delete-item-form" class="form-inline" method="post" action="/delete-item">
+                <form id="delete-item-form" class="form-inline" method="post" action="/timeline/delete">
                     <input type='hidden' name="_csrf" value="{{csrfToken}}">
                     <input type="hidden" name="id" value="{{content.timelineItem.id}}">
                     <button class="btn btn-block btn-danger" type="submit">Delete</button>

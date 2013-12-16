@@ -85,6 +85,18 @@ describe('MirrorClient', function() {
         });
     });
 
+    describe('#patchTimelineItem()', function(){
+        it('can patch a timeline item', function(cb){
+            cb();
+        });
+    });
+
+    describe('#updateTimelineItem()', function(){
+        it('can update a timeline item', function(cb){
+            cb();
+        });
+    });
+
     describe('#deleteTimelineItem()', function(){
         it('can delete a timeline item', function(cb){
             cb();
@@ -104,6 +116,18 @@ describe('MirrorClient', function() {
         });
     });
 
+    describe('#updateContact()', function(){
+        it('can update a contact', function(cb){
+            cb();
+        });
+    });
+
+    describe('#patchContact()', function(){
+        it('can patch a contact', function(cb){
+            cb();
+        });
+    });
+
     describe('#deleteContact()', function(){
         it('can delete a contact', function(cb){
             cb();
@@ -116,6 +140,12 @@ describe('MirrorClient', function() {
         });
     });
 
+    describe('#updateSubscription()', function(){
+        it('can update a subscription', function(cb){
+            cb();
+        });
+    });
+
     describe('#deleteSubscription()', function(){
         it('can delete a subscription', function(cb){
             cb();
@@ -124,6 +154,12 @@ describe('MirrorClient', function() {
 
     describe('#getLocation()', function(){
         it('can fetch a glass location', function(cb){
+            cb();
+        });
+    });
+
+    describe('#listLocations()', function(){
+        it('can list glass locations', function(cb){
             cb();
         });
     });

@@ -24,18 +24,27 @@ module.exports = function(app) {
     function redirectIndex(req, res, next){ res.redirect('/'); }
 
     app.get('/', checkAuth, timelineController.listItems, renderIndex);
-    app.get('/items/:id', checkAuth, timelineController.getItem, timelineController.listItems, renderIndex);
-    app.post('/insert-item', checkAuth, timelineController.insertItem);
-    app.post('/delete-item', checkAuth, timelineController.deleteItem);
+    app.get('/timeline/items/:id', checkAuth, timelineController.getItem, timelineController.listItems, renderIndex);
+    app.post('/timeline/insert', checkAuth, timelineController.insertItem);
+    app.post('/timeline/delete', checkAuth, timelineController.deleteItem);
+    app.post('/timeline/patch', checkAuth, timelineController.patchItem);
+    app.post('/timeline/update', checkAuth, timelineController.updateItem);
+
     app.get('/attachment-proxy', checkAuth, timelineController.getAttachmentProxy);
 
-    app.post('/insert-contact', checkAuth, contactsController.insertContact);
-    app.post('/delete-contact/:id', checkAuth, contactsController.deleteContact);
-    app.get('/contacts/:id', checkAuth, contactsController.getContact);
+    app.get('/contacts/contact/:id', checkAuth, contactsController.getContact);
+    app.get('/contacts/list', checkAuth, contactsController.listContacts);
+    app.post('/contacts/insert', checkAuth, contactsController.insertContact);
+    app.post('/contacts/delete', checkAuth, contactsController.deleteContact);
+    app.post('/contacts/patch', checkAuth, contactsController.patchContact);
+    app.post('/contacts/update', checkAuth, contactsController.updateContact);
 
-    app.post('/insert-subscription', checkAuth, subscriptionsController.insertSubscription);
-    app.post('/delete-subscription', checkAuth, subscriptionsController.deleteSubscription);
-    app.get('/subscriptions/:id', checkAuth, subscriptionsController.getSubscription);
+    app.get('/subscriptions/list', checkAuth, subscriptionsController.listSubscriptions);
+    app.get('/subscriptions/subscription/:id', checkAuth, subscriptionsController.getSubscription);
+    app.post('/subscriptions/insert', checkAuth, subscriptionsController.insertSubscription);
+    app.post('/subscriptions/update', checkAuth, subscriptionsController.updateSubscription);
+    app.post('/subscriptions/delete', checkAuth, subscriptionsController.deleteSubscription);
+
     app.post('/notify-callback', checkAuth, subscriptionsController.getNotificationCallback, timelineController.listItems);
 
     app.get('/oauth2callback', authController.getOauthCallback);
