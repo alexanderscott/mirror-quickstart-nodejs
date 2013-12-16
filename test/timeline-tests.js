@@ -3,8 +3,10 @@
 var assert = require('assert'),
     timelineFixtures = require('./fixtures/timelineItems'),
     _und = require('underscore'),
+    async = require('async'),
     timelineController = require('../app/controllers/timeline');
 
+var insertedTimelineItemIds = [];
 
 describe('timeline', function() {
     before(function(cb) {
@@ -20,7 +22,11 @@ describe('timeline', function() {
     });
 
     after(function(cb) {
-        cb();
+        // Clean up all of the test timeline items we inserted
+        async.each(insertedTimelineItemIds, timelineController.deleteItem, function(err, res){
+            assert.ifError(err);
+            cb();
+        });
     });
 
     describe('#insertTimelineItem()', function() {
@@ -31,6 +37,8 @@ describe('timeline', function() {
                 assert.ifError(err);
                 assert.ok( timelineItem.text === insertedTimelineItem.text, 'inserted timeline text matches intended text' );
                 assert.ok( insertedTimelineItem.id, 'inserted timeline item has an assigned id');
+
+                insertedTimelineItemIds.push(insertedTimelineItem.id);
                 cb();
             });
         });
@@ -38,12 +46,33 @@ describe('timeline', function() {
 
     describe('#getTimelineItem()', function() {
         it('gets a timeline item', function(cb) {
+            var timelineItem = timelineFixtures[0];
+
             timelineController.insertItem(timelineItem, function(err, insertedTimelineItem){
                 assert.ifError(err);
                 timelineController.getItem(insertedTimelineItem.id, function(err, fetchedTimelineItem){
                     assert.ifError(err);
-                    assert.ok( !_und.isEmpty(fetchedtimelineItem), 'a non-empty object has been fetched');
+                    assert.ok( !_und.isEmpty(fetchedTimelineItem), 'a non-empty object has been fetched');
                     assert.ok( _und.isEqual( insertedTimelineItem, fetchedTimelineItem ), 'fetched timeline item matches inserted timeline item');
+                    insertedTimelineItemIds.push(insertedTimelineItem.id);
+                    cb();
+                });
+            });
+        });
+    });
+
+    describe('#patchTimelineItem()', function() {
+        it('patches a timeline item', function(cb) {
+            var timelineItem = timelineFixtures[0];
+
+            timelineController.insertItem(timelineItem, function(err, insertedTimelineItem){
+                assert.ifError(err);
+                insertedTimelineItem.text = 'Patched timeline item';
+                timelineController.patchItem(insertedTimelineItem.id, function(err, patchedTimelineItem){
+                    assert.ifError(err);
+                    assert.ok( !_und.isEmpty(patchedTimelineItem), 'a non-empty object has been fetched');
+                    assert.ok( _und.isEqual( patchedTimelineItem, 'Patched timeline item' ), 'timeline item text has been patched');
+                    insertedTimelineItemIds.push(patchedTimelineItem.id);
                     cb();
                 });
             });
@@ -72,30 +101,9 @@ describe('timeline', function() {
                         assert.ifError(err);
                         assert.ok( _und.isEmpty( res ), 'timeline item cannot be retrieved after it has been deleted' );   
                         cb();
-                    })
+                    });
                 });
             });
-        });
-    });
-
-    describe('#insertAllUsers()', function() {
-        it('inserts all users', function(cb) {
-
-            cb();
-        });
-    });
-
-    describe('#insertPrettyItem()', function() {
-        it('inserts a pretty item', function(cb) {
-
-            cb();
-        });
-    });
-
-    describe('#insertItemWithAction()', function() {
-        it('inserts an item with action', function(cb) {
-
-            cb();
         });
     });
 

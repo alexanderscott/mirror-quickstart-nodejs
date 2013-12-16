@@ -2,6 +2,7 @@
 
 var assert = require('assert'),
     _und = require('underscore'),
+    async = require('async'),
     subscriptionssFixtures = require('./fixtures/subscriptions'),
     subscriptionsController = require('../app/controllers/subscriptions'),
     timelineController = require('../app/controllers/timeline');

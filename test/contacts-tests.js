@@ -2,9 +2,11 @@
 
 var assert = require('assert'),
     _und = require('underscore'),
+    async = require('async'),
     contactsFixtures = require('./fixtures/contacts'),
     contactsController = require('../app/controllers/contacts');
 
+var insertedContactIds = [];
 
 describe('contacts', function() {
     before(function(cb) {
@@ -20,7 +22,11 @@ describe('contacts', function() {
     });
 
     after(function(cb) {
-        cb();
+        // Clean up all of the test timeline items we inserted
+        async.each(insertedContactIds, contactsController.deleteContact, function(err, res){
+            assert.ifError(err);
+            cb();
+        });
     });
 
     describe('#insertContact()', function() {
@@ -30,6 +36,7 @@ describe('contacts', function() {
                 assert.ifError(err);
                 assert.ok( contact.displayName === insertedContact.displayName, 'inserted contact displayName matches intended text' );
                 assert.ok( insertedContact.id, 'inserted contact has an assigned id');
+                insertedContactIds.push( insertedContact.id );
                 cb();
             });
         });

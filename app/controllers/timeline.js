@@ -35,6 +35,16 @@ exports.getItem = function(req, res, next){
     });
 };
 
+exports.patchItem = function(req, res, next) {
+    var item = _und.pick( req.body, Object.keys(TimelineItemModel) );
+    req.app.locals.mirrorClient.patchTimelineItem( item, function(err){
+        if(err) return next('Error deleting timeline item.');
+        req.session.message = 'Successfully deleted timeline item.';
+        //res.locals.message = 'Successfully deleted timeline item.';
+        res.redirect('/');
+    });
+};
+
 exports.deleteItem = function(req, res, next) {
     req.app.locals.mirrorClient.deleteTimelineItem( req.body.id, function(err){
         if(err) return next('Error deleting timeline item.');

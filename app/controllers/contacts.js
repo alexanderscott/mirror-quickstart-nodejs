@@ -22,9 +22,8 @@ exports.insertContact = function(req, res, next) {
     req.app.locals.mirrorClient.insertContact(contact, function(err, insertedContact){
         console.log("inserted contact with err and res::", err, insertedContact);
         if(err) return next('Error inserting contact.');
-        res.locals.message = 'Successfully inserted contact';
-        res.locals.content = { contactItem: insertedContact };
-        next();
+        req.session.message = 'Successfully inserted contact';
+        res.redirect('/contacts/'+insertedContact.id);
     });
 };
 
@@ -39,7 +38,7 @@ exports.getContact = function(req, res, next){
 exports.deleteContact = function(req, res, next) {
     req.app.locals.mirrorClient.deleteContact( req.body.id, function(err){
         if(err) return next('Error deleting contact.');
-        res.locals.message = 'Successfully deleted contact.';
-        next();
+        req.session.message = 'Successfully deleted contact.';
+        res.redirect('/');
     });
 };
