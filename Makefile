@@ -1,6 +1,8 @@
+REPORTER = dot
+
 test: 
 	@./node_modules/.bin/mocha \
         --ui bdd \
-        --reporter spec
+        --reporter $(REPORTER)
 
 .PHONY: test
