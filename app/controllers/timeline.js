@@ -2,8 +2,8 @@
 
 var util = require('util'),
     _und = require('underscore'),
-    TimelineItemModel = require('../models/TimelineItem'),
-    timelineFixtures = require('../../fixture/timelineItems');
+    config = require('../../config'),
+    TimelineItemModel = require('../models/TimelineItem');
 
 exports.insertItem = function(req, res, next) {
     var item = _und.pick( req.body, Object.keys(TimelineItemModel) );

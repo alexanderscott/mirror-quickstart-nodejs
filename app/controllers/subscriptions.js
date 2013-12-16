@@ -4,8 +4,7 @@ var util = require('util'),
     _und = require('underscore'),
     config = require('../../config'),
     async = require('async'),
-    SubscriptionModel = require('../models/Subscription'),
-    subscriptionFixtures = require('../../fixture/subscriptions');
+    SubscriptionModel = require('../models/Subscription');
 
 exports.insertSubscription = function(req, res, next) {
     var subscription = _und.pick( req.body, Object.keys(SubscriptionModel) );
@@ -32,7 +31,7 @@ exports.deleteSubscription = function(req, res, next) {
 exports.getSubscription = function(req, res, next){
     req.app.locals.mirrorClient.getSubscription( req.params.id, function(err, subscription){
         if(err) return next('Error getting subscription.');
-        res.locals.content = { subscription_item: subscription };
+        res.locals.content = { subscriptionItem: subscription };
     });
 };
 

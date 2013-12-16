@@ -73,12 +73,11 @@ require('./app/routes')(app);
 
 // Error handling
 app.use( function(err, req, res, next){
-    console.log('render index');
+    console.log('Error handler called with error:', err);
     if(!req.session.userId) return res.redirect( req.app.locals.mirrorClient.getAuthUrl() );
     res.locals.message = err || res.locals.message;
     res.locals.alert = (err ? 'danger' : 'success');
-    res.locals.timelineItems = req.session.timelineItems;
-    res.render('index');
+    return res.render('index');
 });
 
 // Public static assets served from /public directory

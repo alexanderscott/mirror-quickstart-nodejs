@@ -3,8 +3,7 @@
 var util = require('util'),
     _und = require('underscore'),
     config = require('../../config'),
-    ContactModel = require('../models/Contact'),
-    contactFixtures = require('../../fixture/contacts');
+    ContactModel = require('../models/Contact');
 
 exports.listContacts = function(req, res, next) {
     req.app.locals.mirrorClient.listContacts(function(err, contacts){
