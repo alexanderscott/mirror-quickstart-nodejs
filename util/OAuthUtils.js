@@ -36,6 +36,7 @@ exports.getUserInfo = function(oauthClient, creds, cb){
 };
 
 exports.getAuthUrl = function(oauthClient, userId, state, cb){
+    //oauthClient.generateAuthUrl
     googleApis
         .discover('oauth2', 'v2')
         .withAuthClient( oauthClient )

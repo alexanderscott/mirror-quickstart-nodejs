@@ -11,22 +11,22 @@ var util = require('util'),
 module.exports = function(app) {
 
     function checkAuth(req, res, next) {
-        res.locals.csrfToken = req.csrfToken();
         if( !app.locals.mirrorClient.mirror ) {
-            return res.redirect( app.locals.mirrorClient.getAuthUrl() );
-            //return res.send(401, { error: "Not authorized." });
-        } else {
-            next(); 
-        }
+
+            // If the Mirror client has not been established, redirect user to Google auth URL
+            console.log("redirecting to::" +  req.app.locals.mirrorClient.getAuthUrl() );
+            return res.redirect( req.app.locals.mirrorClient.getAuthUrl() );
+
+        } else next(); 
     }
 
-    app.get('/', checkAuth, timelineController.listItems);
-    app.get('/item/:id', checkAuth, timelineController.getItem);
-    app.post('/insert-item', checkAuth, timelineController.insertItem, timelineController.listItems);
-    app.post('/insert-item-with-action', checkAuth, timelineController.insertItemWithAction, timelineController.listItems);
-    app.post('/insert-pretty-item', checkAuth, timelineController.insertPrettyItem, timelineController.listItems);
-    app.post('/insert-all-users', checkAuth, timelineController.insertAllUsers, timelineController.listItems);
-    app.post('/delete-item', checkAuth, timelineController.deleteItem, timelineController.listItems);
+    function renderIndex(req, res, next){ res.render('index'); }
+    function redirectIndex(req, res, next){ res.redirect('/'); }
+
+    app.get('/', checkAuth, timelineController.listItems, renderIndex);
+    app.get('/items/:id', checkAuth, timelineController.getItem, timelineController.listItems, renderIndex);
+    app.post('/insert-item', checkAuth, timelineController.insertItem);
+    app.post('/delete-item', checkAuth, timelineController.deleteItem);
     app.get('/attachment-proxy', checkAuth, timelineController.getAttachmentProxy);
 
     app.post('/insert-contact', checkAuth, contactsController.insertContact);

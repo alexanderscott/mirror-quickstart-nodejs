@@ -18,13 +18,20 @@ app.locals.mirrorClient = new MirrorClient({
     clientId: config.googleApis.clientId,
     clientSecret: config.googleApis.clientSecret,
     redirectUri: config.googleApis.redirectUris[0],
-    scope: config.googleApis.scope.join(' ')
+    scope: config.googleApis.scope
 });
 
 // Allow node to be run with proxy passing
 app.enable('trust proxy');
 
-// Compression (gzip)
+// View templating & rendering through handlebars.js
+app.set('view engine', 'html');
+app.set('views', __dirname + '/app/views' );
+app.engine('html', hbs.__express);
+hbs.registerPartials(__dirname + '/app/views/partials');
+
+
+// Compression (gzip), body parsing, URL encoding
 app.use( express.compress() );
 app.use( express.methodOverride() );
 app.use( express.urlencoded() );            // Needed to parse POST data sent as JSON payload
@@ -34,14 +41,7 @@ app.use( express.json() );
 app.use( express.cookieParser( config.cookieSecret ) );                 // populates req.signedCookies
 app.use( express.session( { secret: config.sessionSecret }) );         // populates req.session, needed for CSRF
 
-// We use serverside view templating to set the CSRF token and render messages/results
-app.set('view engine', 'html');
-app.set('views', __dirname + '/app/views' );
-app.engine('html', hbs.__express);
-hbs.registerPartials(__dirname + '/views/partials');
-
-// Public static assets served from /public directory
-app.use("/public", express.static(__dirname+'/public'));
+// CSRF for XSS protection - populates req.csrfToken()
 app.use(express.csrf());
 
 // Logging config
@@ -56,16 +56,33 @@ app.configure('production', function(){
 });
 
 
+// Pre-route handling
+app.use( function(req, res, next){
+    console.log('pre-route call');
+    res.locals.message = req.session.message;
+    res.locals.csrfToken = req.csrfToken();
+    next();
+
+    // Flush any message stored in the session
+    req.session.message = null;
+});
+
+
 // Setup routes
-app.use( app.router );
 require('./app/routes')(app);
+
+// Error handling
 app.use( function(err, req, res, next){
     console.log('render index');
+    if(!req.session.userId) return res.redirect( req.app.locals.mirrorClient.getAuthUrl() );
     res.locals.message = err || res.locals.message;
     res.locals.alert = (err ? 'danger' : 'success');
     res.locals.timelineItems = req.session.timelineItems;
     res.render('index');
 });
+
+// Public static assets served from /public directory
+app.use("/public", express.static(__dirname+'/public'));
 
 // Run the server
 server = http.createServer(app).listen( process.env.PORT || config.port);

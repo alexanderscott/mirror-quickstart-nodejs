@@ -9,26 +9,28 @@ exports.insertItem = function(req, res, next) {
     var item = _und.pick( req.body, Object.keys(TimelineItemModel) );
     req.app.locals.mirrorClient.insertTimelineItem(item, function(err, insertedItem){
         if(err) return next('Error inserting timeline item.');
-        res.locals.message = 'Successfully inserted into timeline!';
-        res.locals.content = { timelineItem: insertedItem };
-        next();
+        req.session.message = 'Successfully inserted into timeline!';
+        //res.locals.message = 'Successfully inserted into timeline!';
+
+        res.redirect('/items/'+insertedItem.id);
     });
 };
 
 exports.listItems = function(req, res, next){
     req.app.locals.mirrorClient.listTimelineItems(10, function(err, timeline){
         if(err) return next('Error fetching timeline items.');
+        console.log("returned items ::", timeline.items.length);
         
-        // Store timelineItems in the session so we don't always need to refetch
-        req.session.timelineItems = timeline.items;
+        res.locals.timelineItems = timeline.items;
         next();
     }); 
 };
 
 exports.getItem = function(req, res, next){
     req.app.locals.mirrorClient.getTimelineItem( req.params.id, function(err, timelineItem){
-        if(err) return next("Error fetching timeline item with id " + req.params.id);
-        res.locals.content = { timelineItem: timelineItem };
+        if(err) return next("Error fetching timeline item.");
+        console.log("returned item ::", timelineItem);
+        res.locals.content = { timelineItem: timelineItem };        // Populate main content to be rendered
         next();
     });
 };
@@ -36,41 +38,20 @@ exports.getItem = function(req, res, next){
 exports.deleteItem = function(req, res, next) {
     req.app.locals.mirrorClient.deleteTimelineItem( req.body.id, function(err){
         if(err) return next('Error deleting timeline item.');
-        res.locals.message = 'Successfully deleted timeline item.';
-        next();
-    });
-};
-
-exports.insertAllUsers = function(req, res, next) {
-    res.render('index');
-};
-
-exports.insertPrettyItem = function(req, res, next) {
-    var item = _und.pick( req.body, Object.keys(TimelineItemModel) );
-    req.app.locals.mirrorClient.insertTimelineItem(item, function(err, insertedItem){
-        if(err) return next('Error inserting timeline item.');
-        res.locals.message = 'Successfully inserted into timeline!';
-        res.locals.content = { timelineItem: insertedItem };
-        next();
-    });
-};
-
-exports.insertItemWithAction = function(req, res, next) {
-    var item = _und.pick( req.body, TimelineItemModel );
-    req.app.locals.mirrorClient.insertTimelineItem(item, function(err, insertedItem){
-        if(err) return next('Error inserting timeline item.');
-        res.locals.message = 'Successfully inserted into timeline!';
-        res.locals.content = { timelineItem: insertedItem };
-        next();
+        req.session.message = 'Successfully deleted timeline item.';
+        //res.locals.message = 'Successfully deleted timeline item.';
+        res.redirect('/');
     });
 };
 
 exports.getAttachmentProxy = function(req, res, next) {
-    req.app.locals.mirrorClient.getTimelineAttachment( req.query.timelineId, req.query.attachmentId, function(err, attachment){ 
+    req.app.locals.mirrorClient.getTimelineAttachment( req.query.timelineItemId, req.query.attachmentId, function(err, attachment){ 
         if(err) return res.render('index', { alert: 'error', message: "Error getting attachment proxy!" });
         //req.app.locals.mirrorClient.download( attachment.content_url, next );
-        //res.attachment( attachment.content_url );
-        res.download( attachment.content_url );
-        res.type( attachment.contentType );
+        console.log("attachment",  attachment );
+        res.attachment( attachment.content_url );
+        //res.type( attachment.contentType );
+        //res.download( attachment.content_url );
+
     });
 };
