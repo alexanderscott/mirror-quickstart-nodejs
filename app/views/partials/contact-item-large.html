@@ -1,0 +1,18 @@
+<h3>{{content.contactItem.displayName}}</h3>
+<form id="update-contact-form" class="form-inline" method="post" action="/contacts/update">
+    <input type='hidden' name="_csrf" value="{{csrfToken}}">
+    <input type="hidden" name="id" value="{{content.contactItem.id}}">
+    <h5><b>ID: </b>{{content.contactItem.id}}</h5>
+    <h5><b>Display Name: </b><input name="displayName" type="text" value="{{content.contactItem.displayName}}"></h5>
+    <h5><b>Speakable Name: </b><input name="speakableName" type="text" value="{{content.contactItem.speakableName}}"></h5>
+    <h5><b>Phone Number: </b><input name="phoneNumber" type="text" value="{{content.contactItem.phoneNumber}}"></h5>
+    <h5><b>Image URL: </b><input name="imageUrls" type="text" value="{{content.contactItem.imageUrls.[0]}}"></h5>
+    <button class="btn btn-default btn-block" type="submit" id="update-btn">Update</button>
+</form>
+<br>
+<form id="delete-contact-form" class="form-inline" method="post" action="/contacts/delete">
+    <input type='hidden' name="_csrf" value="{{csrfToken}}">
+    <input type="hidden" name="id" value="{{content.contactItem.id}}">
+    <button class="btn btn-block btn-danger" type="submit">Delete</button>
+</form>
+
