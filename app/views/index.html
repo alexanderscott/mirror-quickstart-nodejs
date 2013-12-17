@@ -20,6 +20,13 @@
                     </button>
                     <a class="navbar-brand" href="/">Mirror QuickStart - Node.js</a>
                 </div>
+                <div class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav">
+                        <li class="{{#if content}}{{#if content.timelineItem}}active{{/if}}{{/if}}"><a href="/">Timeline</a></li>
+                        <li class="{{#if content}}{{#if content.contactItem}}active{{/if}}{{/if}}"><a href="/contacts">Contacts</a></li>
+                        <li class="{{#if content}}{{#if content.subscriptionItem}}active{{/if}}{{/if}}"><a href="/subscriptions">Subscriptions</a></li>
+                    </ul>
+                </div><!--/.nav-collapse -->
             </div><!-- /.container -->
         </div><!-- /.navbar -->
 
@@ -37,36 +44,43 @@
                         <button type="button" class="btn btn-primary btn-xs" data-toggle="offcanvas">Toggle nav</button>
                     </p>
                     <div class="jumbotron">
+
                         {{#if content}}
-                            {{#if content.timelineItem}}
-                                {{> timeline_item}}
+                            {{#if content.timelineItemUpdate}}
+                                {{> timeline_item_update}}
                             {{/if}}
-                            {{#if content.contactItem}}
-                                {{> contact_item}}
+                            {{#if content.contactUpdate}}
+                                {{> contact_update}}
                             {{/if}}
-                            {{#if content.subscriptionItem}}
-                                {{> subscription_item}}
+                            {{#if content.subscriptionUpdate}}
+                                {{> subscription_update}}
+                            {{/if}}
+                            {{#if content.timelineItemNew}}
+                                {{> timeline_item_new}}
+                            {{/if}}
+                            {{#if content.contactNew}}
+                                {{> contact_new}}
+                            {{/if}}
+                            {{#if content.subscriptionNew}}
+                                {{> subscription_new}}
                             {{/if}}
                         {{else}}
                         <h1>Hello, Glass!</h1>
                         <p>This is an example application to demo the use of the Mirror API in Node.js.</p>
                         {{/if}}
                     </div>
-                    <div class="row">
-                        <div class="col-6 col-sm-6 col-lg-4">
-                            {{> timeline_form}}
-                        </div><!--/span-->
-                        <div class="col-6 col-sm-6 col-lg-4">
-                            {{> contacts_form}}
-                        </div><!--/span-->
-                        <div class="col-6 col-sm-6 col-lg-4">
-                            {{> subscriptions_form}}
-                        </div><!--/span-->
-                    </div><!--/row-->
                 </div><!--/span-->
 
                 <div class="col-xs-6 col-sm-3 sidebar-offcanvas panel panel-default" id="sidebar" role="navigation" style="padding:0;">
-                    {{> timeline_list}}
+                    {{#if timeline}}
+                        {{> timeline_list}}
+                    {{/if}}
+                    {{#if contacts}}
+                        {{> contacts_list}}
+                    {{/if}}
+                    {{#if subscriptions}}
+                        {{> subscriptions_list}}
+                    {{/if}}
                 </div><!--/span-->
             </div><!--/row-->
 

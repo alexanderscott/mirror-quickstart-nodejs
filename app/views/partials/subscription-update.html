@@ -1,0 +1,15 @@
+<h2>Subscriptions</h2>
+<p>By default a subscription is inserted for changes to the timeline collection. Learn more about subscriptions <a href="https://developers.google.com/glass/subscriptions" target="_blank">here</a>.</p>
+<p class="alert alert-info">Note: Subscriptions require SSL. They will not work on localhost.</p>
+<form id="subscription-timeline-updates-form" action="/subscriptions/insert" method="post" class="form" role="form">
+    <input type='hidden' name="_csrf" value="{{csrfToken}}">
+    <input name="id" type="hidden" value="timeline">
+    <button class="btn btn-block btn-success" type="submit">Subscribe to timeline updates</button>
+</form>
+<br>
+<form id="subscription-location-updates-form" action="/subscriptions/insert" method="post" class="form" role="form">
+    <input type='hidden' name="_csrf" value="{{csrfToken}}">
+    <input name="id" type="hidden" value="locations">
+    <button class="btn btn-block btn-success" type="submit">Subscribe to location updates</button>
+</form>
+

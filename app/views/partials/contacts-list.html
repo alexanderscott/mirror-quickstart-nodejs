@@ -1,6 +1,6 @@
 <div class="panel-heading">Recent Contacts</div>
 <div class="list-group">
-    {{#each contactItems}}
+    {{#each contacts.items}}
     <a href="/contacts/contact/{{this.id}}" data-item="{{this.id}}" class="list-group-item clearfix"> {{this.displayName}} </a>
     {{/each}}
 </div>

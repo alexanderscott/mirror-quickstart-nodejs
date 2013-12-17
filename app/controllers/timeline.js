@@ -10,14 +10,15 @@ exports.insertTimelineItem = function(req, res, next) {
     req.app.locals.mirrorClient.insertTimelineItem(item, function(err, insertedItem){
         if(err) return next('Error inserting timeline item.');
         req.session.message = 'Successfully inserted into timeline!';
-        res.redirect('/items/'+insertedItem.id);
+        res.redirect('/timeline/items/'+insertedItem.id);
     });
 };
 
 exports.listTimelineItems = function(req, res, next){
     req.app.locals.mirrorClient.listTimelineItems(10, function(err, timeline){
         if(err) return next('Error fetching timeline items.');
-        res.locals.timelineItems = timeline.items;
+        res.locals.timeline = timeline;
+        res.locals.content = { timelineItemNew: true };
         next();
     }); 
 };
@@ -26,17 +27,17 @@ exports.getTimelineItem = function(req, res, next){
     req.app.locals.mirrorClient.getTimelineItem( req.params.id, function(err, timelineItem){
         if(err) return next("Error fetching timeline item.");
         console.log("returned item ::", timelineItem);
-        res.locals.content = { timelineItem: timelineItem };        // Populate main content to be rendered
+        res.locals.content = { timelineItemUpdate: timelineItem };        // Populate main content to be rendered
         next();
     });
 };
 
 exports.patchTimelineItem = function(req, res, next) {
     var item = _und.pick( req.body, Object.keys(TimelineItemModel) );
-    req.app.locals.mirrorClient.patchTimelineItem( item, function(err){
+    req.app.locals.mirrorClient.patchTimelineItem( item, function(err, patchedItem){
         if(err) return next('Error patching timeline item.');
         req.session.message = 'Successfully patched timeline item.';
-        res.redirect('/');
+        res.redirect('/timeline/items/'+item.id);
     });
 };
 
@@ -45,7 +46,7 @@ exports.updateTimelineItem = function(req, res, next) {
     req.app.locals.mirrorClient.updateTimelineItem( item, function(err){
         if(err) return next('Error updating timeline item.');
         req.session.message = 'Successfully updated timeline item.';
-        res.redirect('/');
+        res.redirect('/timeline/items/'+item.id);
     });
 };
 

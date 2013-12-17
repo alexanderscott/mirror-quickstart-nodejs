@@ -37,19 +37,19 @@ function _tryLogin(mirrorClient, code, cb){
 exports.getOauthCallback = function(req, res, next){
     if(req.query.code) {
         _tryLogin(req.app.locals.mirrorClient, req.query.code, function(err, credsRes){
-            if(err) return res.redirect( req.app.locals.mirrorClient.generateAuthUrl() );
+            if(err) return res.redirect( req.app.locals.mirrorClient.getAuthUrl() );
             res.redirect('/');
             //next();
         });
     } else if(!req.session.userId){
-        res.redirect( req.app.locals.mirrorClient.generateAuthUrl() );
+        res.redirect( req.app.locals.mirrorClient.getAuthUrl() );
     } else {
         credentialsStore.getStoredCredentials( req.session.userId, function(err, creds){
-            if(err) return res.redirect( req.app.locals.mirrorClient.generateAuthUrl() );
+            if(err) return res.redirect( req.app.locals.mirrorClient.getAuthUrl() );
             var code = require('querystring').stringify( JSON.parse(creds) );  
 
             _tryLogin(req.app.locals.mirrorClient, code, function(err, credsRes){
-                if(err) return res.redirect( req.app.locals.mirrorClient.generateAuthUrl() );
+                if(err) return res.redirect( req.app.locals.mirrorClient.getAuthUrl() );
                 res.redirect('/');
                 //next();
             });

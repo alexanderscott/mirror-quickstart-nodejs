@@ -1,8 +1,8 @@
-<h3>{{content.contactItem.displayName}}</h3>
-<h5><b>ID: </b>{{content.contactItem.id}}</h5>
+<h3>{{this.displayName}}</h3>
+<h5><b>ID: </b>{{this.id}}</h5>
 <br>
 <form id="delete-contact-form" class="form-inline" method="post" action="/contacts/delete">
     <input type='hidden' name="_csrf" value="{{csrfToken}}">
-    <input type="hidden" name="id" value="{{content.contactItem.id}}">
+    <input type="hidden" name="id" value="{{this.id}}">
     <button class="btn btn-block btn-danger" type="submit">Delete</button>
 </form>

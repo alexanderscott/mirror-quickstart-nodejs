@@ -1,7 +1,8 @@
 <h2>Timeline</h2>
 <p>When you first sign in, this Glassware inserts a welcome message. Use these controls to insert more items into your timeline. Learn more about the timeline APIs <a href="https://developers.google.com/glass/timeline" target="_blank">here</a>.</p>
 
-<form id="timeline-insert-form" action="/timeline/insert" method="post" class="form" role="form" enctype="multipart/form-data">
+<form id="timeline-insert-form" action="/timeline/insert" method="post" class="form" role="form">
+<!--<form id="timeline-insert-form" action="/timeline/insert" method="post" class="form" role="form" enctype="multipart/form-data">-->
     <input type='hidden' name="_csrf" value="{{csrfToken}}">
 
     <input name="text" type="text" placeholder="Insert text here..." value="">

@@ -1,0 +1,21 @@
+<h3>{{content.contactUpdate.displayName}}</h3>
+<form id="update-contact-form" class="form-inline" method="post" action="/contacts/update">
+    <input type='hidden' name="_csrf" value="{{csrfToken}}">
+    <input type="hidden" name="id" value="{{content.contactUpdate.id}}">
+    <input type="hidden" name="source" value="{{content.contactUpdate.source}}">
+    <input type="hidden" name="kind" value="{{content.contactUpdate.kind}}">
+    <h5><b>ID: </b>{{content.contactUpdate.id}}</h5>
+    <h5><b>Display Name: </b><input name="displayName" type="text" value="{{content.contactUpdate.displayName}}"></h5>
+    <h5><b>Speakable Name: </b><input name="speakableName" type="text" value="{{content.contactUpdate.speakableName}}"></h5>
+    <h5><b>Phone Number: </b><input name="phoneNumber" type="text" value="{{content.contactUpdate.phoneNumber}}"></h5>
+    <h5><b>Image URL: </b><input name="imageUrls" type="text" value="{{content.contactUpdate.imageUrls.[0]}}"></h5>
+    <br>
+    <button class="btn btn-warning btn-block" type="submit" role="button" id="update-btn">Update</button>
+</form>
+<br>
+<form id="delete-contact-form" class="form-inline" method="post" action="/contacts/delete">
+    <input type='hidden' name="_csrf" value="{{csrfToken}}">
+    <input type="hidden" name="id" value="{{content.contactUpdate.id}}">
+    <button class="btn btn-block btn-danger" type="submit" role="button">Delete</button>
+</form>
+<br>

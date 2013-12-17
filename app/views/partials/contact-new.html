@@ -1,0 +1,10 @@
+<h3>Insert a new Contact</h3>
+<form id="insert-contact-form" class="form-inline" method="post" action="/contacts/insert">
+    <input type='hidden' name="_csrf" value="{{csrfToken}}">
+    <h5><b>ID: </b><input name="id" type="text" value=""></h5>
+    <h5><b>Display Name: </b><input name="displayName" type="text" value=""></h5>
+    <h5><b>Speakable Name: </b><input name="speakableName" type="text" value=""></h5>
+    <h5><b>Phone Number: </b><input name="phoneNumber" type="text" value=""></h5>
+    <h5><b>Image URL: </b><input name="imageUrls" type="text" value=""></h5>
+    <button class="btn btn-default btn-block" type="submit" id="update-btn">Insert</button>
+</form>

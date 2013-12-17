@@ -11,6 +11,8 @@ var util = require('util'),
 module.exports = function(app) {
 
     function checkAuth(req, res, next) {
+        //res.locals.csrfToken = req.csrfToken();
+
         if( !app.locals.mirrorClient.mirror ) {
 
             // If the Mirror client has not been established, redirect user to Google auth URL
@@ -24,7 +26,8 @@ module.exports = function(app) {
     function redirectIndex(req, res, next){ res.redirect('/'); }
 
     app.get('/', checkAuth, timelineController.listTimelineItems, renderIndex);
-    app.get('/timeline/items/:id', checkAuth, timelineController.getTimelineItem, timelineController.listTimelineItems, renderIndex);
+    app.get('/timeline', checkAuth, timelineController.listTimelineItems, renderIndex);
+    app.get('/timeline/items/:id', checkAuth, timelineController.listTimelineItems, timelineController.getTimelineItem, renderIndex);
     app.post('/timeline/insert', checkAuth, timelineController.insertTimelineItem);
     app.post('/timeline/delete', checkAuth, timelineController.deleteTimelineItem);
     app.post('/timeline/patch', checkAuth, timelineController.patchTimelineItem);
@@ -32,15 +35,15 @@ module.exports = function(app) {
 
     app.get('/attachment-proxy', checkAuth, timelineController.getAttachmentProxy);
 
-    app.get('/contacts/contact/:id', checkAuth, contactsController.getContact);
-    app.get('/contacts/list', checkAuth, contactsController.listContacts);
+    app.get('/contacts/contact/:id', checkAuth, contactsController.listContacts, contactsController.getContact, renderIndex);
+    app.get('/contacts', checkAuth, contactsController.listContacts, renderIndex);
     app.post('/contacts/insert', checkAuth, contactsController.insertContact);
     app.post('/contacts/delete', checkAuth, contactsController.deleteContact);
     app.post('/contacts/patch', checkAuth, contactsController.patchContact);
     app.post('/contacts/update', checkAuth, contactsController.updateContact);
 
-    app.get('/subscriptions/list', checkAuth, subscriptionsController.listSubscriptions);
-    app.get('/subscriptions/subscription/:id', checkAuth, subscriptionsController.getSubscription);
+    app.get('/subscriptions', checkAuth, subscriptionsController.listSubscriptions, renderIndex);
+    app.get('/subscriptions/subscription/:id', checkAuth, subscriptionsController.listSubscriptions, subscriptionsController.getSubscription, renderIndex);
     app.post('/subscriptions/insert', checkAuth, subscriptionsController.insertSubscription);
     app.post('/subscriptions/update', checkAuth, subscriptionsController.updateSubscription);
     app.post('/subscriptions/delete', checkAuth, subscriptionsController.deleteSubscription);

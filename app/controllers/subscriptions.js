@@ -13,7 +13,7 @@ exports.insertSubscription = function(req, res, next) {
     req.app.locals.mirrorClient.insertSubscription(subscription, function(err, insertedSubscription){
         if(err) return next('Error inserting subscription!');
         req.session.message = 'Successfully inserted subscription.';
-        res.redirect('/subscriptions/'+insertedSubscription.id);
+        res.redirect('/subscriptions/subscription/'+insertedSubscription.id);
     });
 };
 
@@ -29,24 +29,25 @@ exports.deleteSubscription = function(req, res, next) {
 exports.updateSubscription = function(req, res, next){
     var subscription = _und.pick( req.body, Object.keys(SubscriptionModel) );
     req.app.locals.mirrorClient.updateSubscription( subscription, function(err, subscription){
-        if(err) return next('Error getting subscription.');
-        res.locals.content = { subscriptionItem: subscription };
-        next();
+        if(err) return next('Error updating subscription.');
+        req.session.message = 'Successfully updated subscription.';
+        res.redirect('/subscriptions/subscription/' + subscription.id);
     });
 };
 
 exports.getSubscription = function(req, res, next){
     req.app.locals.mirrorClient.getSubscription( req.params.id, function(err, subscription){
         if(err) return next('Error getting subscription.');
-        res.locals.content = { subscriptionItem: subscription };
+        res.locals.content = { subscriptionUpdate: subscription };
         next();
     });
 };
 
 exports.listSubscriptions = function(req, res, next){
-    req.app.locals.mirrorClient.listSubscriptions( 10, function(err, subscriptions){
+    req.app.locals.mirrorClient.listSubscriptions( function(err, subscriptions){
         if(err) return next("Error getting subscription list.");
-        res.locals.subscriptionItems = subscriptions;
+        res.locals.subscriptions = subscriptions.items;
+        res.locals.content = { subscriptionNew: true };
         next();
     });
 };
