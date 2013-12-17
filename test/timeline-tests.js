@@ -4,7 +4,8 @@ var assert = require('assert'),
     timelineFixtures = require('./fixtures/timelineItems'),
     _und = require('underscore'),
     async = require('async'),
-    timelineController = require('../app/controllers/timeline');
+    timelineItemModel = require('../app/models/TimelineItem'),
+    timelineController = require('../app/controllers/TimelineController');
 
 var insertedTimelineItemIds = [];
 

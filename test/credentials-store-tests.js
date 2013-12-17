@@ -7,7 +7,7 @@ var assert = require('assert'),
     CredentialsStore = require('../lib/CredentialsStore'),
     timelineFixtures = require('./fixtures/timelineItems'),
     _und = require('underscore'),
-    timelineController = require('../app/controllers/timeline');
+    timelineController = require('../app/controllers/TimelineController');
 
 var insertedUsers = [];
 

@@ -3,10 +3,10 @@
 var util = require('util'),
     _und = require('underscore'),
     config = require('../config'),
-    timelineController = require('./controllers/timeline'),
-    contactsController = require('./controllers/contacts'),
-    subscriptionsController = require('./controllers/subscriptions'),
-    authController = require('./controllers/auth');
+    timelineController = require('./controllers/TimelineController'),
+    contactsController = require('./controllers/ContactsController'),
+    subscriptionsController = require('./controllers/SubscriptionsController'),
+    authController = require('./controllers/AuthController');
 
 module.exports = function(app) {
 

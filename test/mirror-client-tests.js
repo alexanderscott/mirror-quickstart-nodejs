@@ -5,7 +5,7 @@ var assert = require('assert'),
     timelineFixtures = require('./fixtures/timelineItems'),
     config = require('../config'),
     _und = require('underscore'),
-    timelineController = require('../app/controllers/timeline');
+    timelineController = require('../app/controllers/TimelineController');
 
 var mirrorClient;
 

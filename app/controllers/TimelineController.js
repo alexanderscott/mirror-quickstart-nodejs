@@ -3,7 +3,10 @@
 var util = require('util'),
     _und = require('underscore'),
     config = require('../../config'),
+    locationHelper = require('../helpers/LocationHelper'),
     TimelineItemModel = require('../models/TimelineItem');
+
+
 
 exports.insertTimelineItem = function(req, res, next) {
     var item = _und.pick( req.body, Object.keys(TimelineItemModel) );
@@ -54,7 +57,7 @@ exports.deleteTimelineItem = function(req, res, next) {
     req.app.locals.mirrorClient.deleteTimelineItem( req.body.id, function(err){
         if(err) return next('Error deleting timeline item.');
         req.session.message = 'Successfully deleted timeline item.';
-        res.redirect('/');
+        res.redirect('/timeline');
     });
 };
 

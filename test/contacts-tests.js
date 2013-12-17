@@ -4,7 +4,8 @@ var assert = require('assert'),
     _und = require('underscore'),
     async = require('async'),
     contactsFixtures = require('./fixtures/contacts'),
-    contactsController = require('../app/controllers/contacts');
+    contactModel = require('../app/models/Contact'),
+    contactsController = require('../app/controllers/ContactsController');
 
 var insertedContactIds = [];
 

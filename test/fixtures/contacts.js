@@ -16,6 +16,6 @@ module.exports = [
     {
         id: "nodejs-quickstart",
         displayName: "Node.js Quick Start",
-        imageUrls: [ config.host + ':' + config.port + '/assets/images/chipotle-tube-640x360.jpg']
+        imageUrls: [ (config.ssl ? 'https://' : 'http://' ) + config.host + ':' + config.port + '/assets/images/chipotle-tube-640x360.jpg']
     }
 ];
