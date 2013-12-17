@@ -10,12 +10,11 @@
     <h5><b>Phone Number: </b><input name="phoneNumber" type="text" value="{{content.contactUpdate.phoneNumber}}"></h5>
     <h5><b>Image URL: </b><input name="imageUrls" type="text" value="{{content.contactUpdate.imageUrls.[0]}}"></h5>
     <br>
-    <button class="btn btn-warning btn-block" type="submit" role="button" id="update-btn">Update</button>
+    <button class="btn btn-warning" type="submit" role="button" id="update-btn">Update</button>
 </form>
-<br>
 <form id="delete-contact-form" class="form-inline" method="post" action="/contacts/delete">
     <input type='hidden' name="_csrf" value="{{csrfToken}}">
     <input type="hidden" name="id" value="{{content.contactUpdate.id}}">
-    <button class="btn btn-block btn-danger" type="submit" role="button">Delete</button>
+    <button class="btn btn-danger" type="submit" role="button">Delete</button>
 </form>
 <br>

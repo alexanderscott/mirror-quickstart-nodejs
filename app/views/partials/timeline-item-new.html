@@ -5,21 +5,27 @@
 <!--<form id="timeline-insert-form" action="/timeline/insert" method="post" class="form" role="form" enctype="multipart/form-data">-->
     <input type='hidden' name="_csrf" value="{{csrfToken}}">
 
-    <input name="text" type="text" placeholder="Insert text here..." value="">
-    <input name="title" type="text" placeholder="Insert title here" value="">
+    <label>Title <input name="title" type="text" placeholder="Insert title here" value=""></label>
+    <label>Text <input name="text" type="text" placeholder="Insert text here..." value=""></label> 
 
-    <div class="checkbox">
-        <label><input type="checkbox" name="menuItems[]" value="DELETE" data-menuItem="DELETE" checked> DELETE </label>
-        <label><input type="checkbox" name="menuItems[]" value="SHARE" data-menuItem="SHARE" checked> SHARE </label>
+    <label>HTML
+        <textarea class="form-control" rows="10" cols="50" name="html" placeholder="Glassify me, Captain!" style="resize:none"></textarea>
+    </label>
+
+
+
+    <div class="row">
+        <div class="checkbox">
+            <label><input type="checkbox" name="menuItems[]" value="DELETE" data-menuItem="DELETE" checked> DELETE </label>
+            <label><input type="checkbox" name="menuItems[]" value="SHARE" data-menuItem="SHARE" checked> SHARE </label>
+            <label><input type="checkbox" name="menuItems[]" value="READ-ALOUD" data-menuItem="READ-ALOUD" checked> READ-ALOUD </label>
+        </div>
+        <input type="file" name="attachment" maxlength="50">
+        <input name='imageUrl' type='hidden' value='/public/assets/images/chipotle-tube-640x360.jpg'>
+        <input name='contentType' type='hidden' value='image/jpeg'>
+
+        <button class="btn btn-primary" type="submit" role="button">Insert the above message</button>
     </div>
-
-    <textarea class="form-control" rows="10" cols="50" name="html" placeholder="Glassify me, Captain!" style="resize:none"></textarea>
-
-    <input type="file" name="attachment" maxlength="50">
-    <input name='imageUrl' type='hidden' value='/public/assets/images/chipotle-tube-640x360.jpg'>
-    <input name='contentType' type='hidden' value='image/jpeg'>
-
-    <button class="btn btn-primary" type="submit" role="button">Insert the above message</button>
     
 </form>
 <br>

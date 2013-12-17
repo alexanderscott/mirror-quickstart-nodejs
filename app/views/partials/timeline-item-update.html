@@ -5,19 +5,11 @@
     <input type="hidden" name="source" value="{{content.timelineItemUpdate.source}}">
     <input type="hidden" name="kind" value="{{content.timelineItemUpdate.kind}}">
 
-    <table class="table table-bordered">
-        <tbody>
-            <tr>
-                <th>ID</th><td>{{content.timelineItemUpdate.id}}</td>
-            </tr>
-            <tr>
-                <th>Text</th><td><input name="text" type="text" value="{{content.timelineItemUpdate.text}}"></td>
-            </tr>
-            <tr>
-                <th>HTML</th><td>{{content.timelineItemUpdate.html}}</td>
-            </tr>
-            <tr>
-                <th>Menu Items</th>
+    <table class="table table-bordered"> <tbody>
+            <tr> <th>ID</th><td>{{content.timelineItemUpdate.id}}</td> </tr>
+            <tr> <th>Text</th><td><input name="text" type="text" value="{{content.timelineItemUpdate.text}}"></td> </tr>
+            <tr> <th>HTML</th><td>{{content.timelineItemUpdate.html}}</td> </tr>
+            <tr> <th>Menu Items</th> 
                 <td>
                     <div class="checkbox">
                         <label><input type="checkbox" name="menuItems.SHARE" value="DELETE" data-menuItem="DELETE" {{#if content.timelineItemUpdate.menuItemsObj}}{{#if content.timelineItemUpdate.menuItemsObj.DELETE}}checked{{/if}}{{/if}}> DELETE </label>
@@ -25,8 +17,7 @@
                     </div>
                 </td>
             </tr>
-            <tr>
-                <th>Attachments</th>
+            <tr> <th>Attachments</th> 
                 <td>
                     {{#if content.timelineItemUpdate.attachments}}
                         {{#each content.timelineItemUpdate.attachments}}
@@ -37,22 +28,16 @@
                     {{/if}}
                 </td>
             </tr>
-            <tr>
-                <td>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+    </tbody> </table>
 
     <br>
 
-    <button id="update-btn" class="btn btn-block btn-warning" type="submit">Update</button>
+    <button id="update-btn" class="btn btn-warning" type="submit">Update</button>
 
 </form>
-<br>
 <form id="delete-item-form" class="form-inline" method="post" action="/timeline/delete">
     <input type='hidden' name="_csrf" value="{{csrfToken}}">
     <input type="hidden" name="id" value="{{content.timelineItemUpdate.id}}">
-    <button class="btn btn-block btn-danger" type="submit">Delete</button>
+    <button class="btn btn-danger" type="submit">Delete</button>
 </form>
 <br>
