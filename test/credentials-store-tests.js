@@ -28,7 +28,7 @@ describe('CredentialsStore', function() {
         var credentialsStore = new CredentialsStore();
 
         // Cleanup all the random userIds we inserted, testing the delete method
-        async.each(insertedUsers, credentialsStore.deleteStoredCredentials, function(err, res){
+        async.each(insertedUsers, _und.bind(credentialsStore.deleteStoredCredentials, credentialsStore), function(err, res){
             assert.ifError(err); 
             cb();
         });
@@ -65,6 +65,7 @@ describe('CredentialsStore', function() {
                     assert.ok( !_und.isEmpty(res), 'found the stored credentials we inserted');
                     assert.ok( res === JSON.stringify(creds), 'the credentials hash we found matches what we inserted');
                     cb();
+                });
             });
         });
     });

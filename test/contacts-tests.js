@@ -24,7 +24,7 @@ describe('contacts', function() {
 
     after(function(cb) {
         // Clean up all of the test timeline items we inserted
-        async.each(insertedContactIds, contactsController.deleteContact, function(err, res){
+        async.each(insertedContactIds, _und.bind(contactsController.deleteContact, contactsController), function(err, res){
             assert.ifError(err);
             cb();
         });

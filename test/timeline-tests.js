@@ -24,7 +24,7 @@ describe('timeline', function() {
 
     after(function(cb) {
         // Clean up all of the test timeline items we inserted
-        async.each(insertedTimelineItemIds, timelineController.deleteItem, function(err, res){
+        async.each(insertedTimelineItemIds, _und.bind(timelineController.deleteItem, timelineController), function(err, res){
             assert.ifError(err);
             cb();
         });
