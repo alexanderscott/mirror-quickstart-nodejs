@@ -1,6 +1,5 @@
 mirror-quickstart-nodejs
 ========================
-[![Build Status](https://secure.travis-ci.org/alexanderscott/mirror-quickstart-nodejs.png?branch=master)](http://travis-ci.org/alexanderscott/mirror-quickstart-nodejs)
 
 Unofficial Google Mirror API's Quickstart for Node.js (using Express)
 
@@ -17,10 +16,6 @@ This project is closely based off of Google's official ruby quickstart guide, wi
 
     node app.js
 
-
-## Test
-
-    make test
 
 ## Contribute
 
