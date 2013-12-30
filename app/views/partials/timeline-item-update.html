@@ -1,19 +1,20 @@
-<h3>{{#if content.timelineItemUpdate.title}}{{content.timelineItemUpdate.title}}{{/if}}</h3>
 <form id="update-item-form" class="form-inline" method="post" action="/timeline/update">
     <input type='hidden' name="_csrf" value="{{csrfToken}}">
     <input type="hidden" name="id" value="{{content.timelineItemUpdate.id}}">
     <input type="hidden" name="source" value="{{content.timelineItemUpdate.source}}">
     <input type="hidden" name="kind" value="{{content.timelineItemUpdate.kind}}">
 
-    <table class="table table-bordered"> <tbody>
+    <table class="table table-bordered"> 
+        <tbody>
+            <tr> <th>Title</th><td><input name="title" type="text" value="{{content.timelineItemUpdate.title}}"></td></tr>
             <tr> <th>ID</th><td>{{content.timelineItemUpdate.id}}</td> </tr>
             <tr> <th>Text</th><td><input name="text" type="text" value="{{content.timelineItemUpdate.text}}"></td> </tr>
             <tr> <th>HTML</th><td>{{content.timelineItemUpdate.html}}</td> </tr>
             <tr> <th>Menu Items</th> 
                 <td>
                     <div class="checkbox">
-                        <label><input type="checkbox" name="menuItems.SHARE" value="DELETE" data-menuItem="DELETE" {{#if content.timelineItemUpdate.menuItemsObj}}{{#if content.timelineItemUpdate.menuItemsObj.DELETE}}checked{{/if}}{{/if}}> DELETE </label>
-                        <label><input type="checkbox" name="menuItems.DEBUG" value="SHARE" data-menuItem="SHARE" {{#if content.timelineItemUpdate.menuItemsObj}}{{#if content.timelineItemUpdate.menuItemsObj.SHARE}}checked{{/if}}{{/if}}> SHARE </label>
+                        <label><input type="checkbox" name="menuItems.DELETE" value="DELETE" data-menuItem="DELETE" {{#if content.timelineItemUpdate.menuItemsObj}}{{#if content.timelineItemUpdate.menuItemsObj.DELETE}}checked{{/if}}{{/if}}> DELETE </label>
+                        <label><input type="checkbox" name="menuItems.SHARE" value="SHARE" data-menuItem="SHARE" {{#if content.timelineItemUpdate.menuItemsObj}}{{#if content.timelineItemUpdate.menuItemsObj.SHARE}}checked{{/if}}{{/if}}> SHARE </label>
                     </div>
                 </td>
             </tr>
@@ -28,7 +29,8 @@
                     {{/if}}
                 </td>
             </tr>
-    </tbody> </table>
+        </tbody> 
+    </table>
 
     <br>
 

@@ -12,6 +12,9 @@ module.exports = function(app) {
 
     function checkAuth(req, res, next) {
         //res.locals.csrfToken = req.csrfToken();
+        
+        // Flush any message stored in the session
+        req.session.message = null;
 
         if( !app.locals.mirrorClient.mirror ) {
 

@@ -1,6 +1,8 @@
 <h2>Timeline</h2>
 <p>When you first sign in, this Glassware inserts a welcome message. Use these controls to insert more items into your timeline. Learn more about the timeline APIs <a href="https://developers.google.com/glass/timeline" target="_blank">here</a>.</p>
 
+<br>
+
 <form id="timeline-insert-form" action="/timeline/insert" method="post" class="form" role="form">
 <!--<form id="timeline-insert-form" action="/timeline/insert" method="post" class="form" role="form" enctype="multipart/form-data">-->
     <input type='hidden' name="_csrf" value="{{csrfToken}}">
@@ -13,18 +15,25 @@
     </label>
 
 
+    <br>
 
     <div class="row">
-        <div class="checkbox">
-            <label><input type="checkbox" name="menuItems[]" value="DELETE" data-menuItem="DELETE" checked> DELETE </label>
-            <label><input type="checkbox" name="menuItems[]" value="SHARE" data-menuItem="SHARE" checked> SHARE </label>
-            <label><input type="checkbox" name="menuItems[]" value="READ-ALOUD" data-menuItem="READ-ALOUD" checked> READ-ALOUD </label>
+
+        <div class="checkboxes">
+            <label><input type="checkbox" name="menuItems.DELETE" value="DELETE" data-menuItem="DELETE" checked> DELETE </label>
+            <label><input type="checkbox" name="menuItems.SHARE" value="SHARE" data-menuItem="SHARE" checked> SHARE </label>
+            <label><input type="checkbox" name="menuItems.READ-ALOUD" value="READ-ALOUD" data-menuItem="READ-ALOUD" checked> READ-ALOUD </label>
         </div>
-        <input type="file" name="attachment" maxlength="50">
+
+        <br>
+
+        <label>Attachment <input type="file" name="attachment" maxlength="50"></label>
         <input name='imageUrl' type='hidden' value='/public/assets/images/chipotle-tube-640x360.jpg'>
         <input name='contentType' type='hidden' value='image/jpeg'>
 
-        <button class="btn btn-primary" type="submit" role="button">Insert the above message</button>
+        <br>
+
+        <button class="btn btn-primary pull-right" type="submit" role="button">Insert the above message</button>
     </div>
     
 </form>

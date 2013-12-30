@@ -58,13 +58,10 @@ app.configure('production', function(){
 
 // Pre-route handling
 app.use( function(req, res, next){
-    //console.log('pre-route call');
     res.locals.message = req.session.message;
     res.locals.csrfToken = req.csrfToken();
+    //console.log('pre-route call, res.locals.message = ' + res.locals.message);
     next();
-
-    // Flush any message stored in the session
-    //req.session.message = null;
 });
 
 
