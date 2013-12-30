@@ -8,7 +8,7 @@ var express = require('express'),
     path = require("path"),
     config = require('./config'),
 
-    MirrorClient = require('./lib/MirrorClient'),
+    MirrorClient = require('mirror-api-client'),
     hbs = require('hbs'),
 
     app = express(),

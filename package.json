@@ -17,7 +17,8 @@
     "sqlite3": "~2.x.x",
     "bcrypt": "~0.7.7",
     "underscore": "~1.5.2",
-    "async": "~0.2.9"
+    "async": "~0.2.9",
+    "mirror-api-client": ">= 0.0.4"
   },
   "devDependencies": {
     "mocha": "1.8.x"
