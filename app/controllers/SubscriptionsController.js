@@ -7,6 +7,16 @@ var util = require('util'),
     async = require('async'),
     SubscriptionModel = require('../models/Subscription');
 
+
+exports.listSubscriptions = function(req, res, next){
+    req.app.locals.mirrorClient.listSubscriptions( function(err, subscriptions){
+        if(err) return next("Error getting subscription list.");
+        res.locals.subscriptions = subscriptions;
+        res.locals.content = { subscriptionNew: true };
+        next();
+    });
+};
+
 exports.insertSubscription = function(req, res, next) {
     var subscription = _und.pick( req.body, Object.keys(SubscriptionModel) );
     subscription.callbackUrl = (config.ssl ? 'https' : 'http' ) + '://' + config.host + config.port + '/notify-callback'; 
@@ -40,15 +50,6 @@ exports.getSubscription = function(req, res, next){
     req.app.locals.mirrorClient.getSubscription( req.params.id, function(err, subscription){
         if(err) return next('Error getting subscription.');
         res.locals.content = { subscriptionUpdate: subscription };
-        next();
-    });
-};
-
-exports.listSubscriptions = function(req, res, next){
-    req.app.locals.mirrorClient.listSubscriptions( function(err, subscriptions){
-        if(err) return next("Error getting subscription list.");
-        res.locals.subscriptions = subscriptions.items;
-        res.locals.content = { subscriptionNew: true };
         next();
     });
 };

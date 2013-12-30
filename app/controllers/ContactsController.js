@@ -9,7 +9,7 @@ exports.listContacts = function(req, res, next) {
     req.app.locals.mirrorClient.listContacts(function(err, contacts){
         if(err) return next('Error listing contacts.');
         res.locals.contacts = contacts;
-        console.log("contacts:" + util.inspect(contacts));
+        //console.log("contacts:" + util.inspect(contacts));
         res.locals.content = { contactNew: true };
 
         next();
