@@ -10,7 +10,6 @@
   "private": false,
   "author": "Alex Ehrnschwender <alex.ehrnschwender@gmail.com> (http://alexehrnschwender.com)",
   "dependencies": {
-    "googleapis": "~0.4.6",
     "express": "~3.4.6",
     "hbs": "~2.4.0",
     "request": "~2.27.0",
