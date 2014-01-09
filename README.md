@@ -45,3 +45,4 @@ COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
 IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+[![githalytics.com alpha](https://cruel-carlota.pagodabox.com/1fcc021639bf7d166b63ed9d9ae9d70b "githalytics.com")](http://githalytics.com/alexanderscott/mirror-quickstart-nodejs)
