@@ -1,7 +1,6 @@
 "use strict";
 
 var util = require('util'),
-    OAuthUtils = require('../../util/OAuthUtils'),
     async = require('async'),
     _und = require('underscore');
 
@@ -10,24 +9,19 @@ var CredentialsStore = require('../../lib/CredentialsStore'),
 
 function _tryLogin(mirrorClient, code, cb){
     console.log("trying getTokens with code:: " + code );
-    mirrorClient.getTokens(code, function(err, creds){
+
+    mirrorClient.authorize(code, function(err, creds){
+        console.log("authorize returned creds: ", creds || 'empty!');
         if(err) return cb(err);
 
-        console.log(" getTokens returned creds: ", creds);
-
-        mirrorClient.oauth2Client.credentials = creds;
-
-        OAuthUtils.getUserInfo( mirrorClient.oauth2Client, creds, function(err, res){
+        mirrorClient.getUserInfo(function(err, res){
             if(err) return cb(err);
 
             console.log("getUserInfo res:", res); 
 
             credentialsStore.storeCredentials( res.id, creds, function(err, res){
                 if(err) return cb(err);
-                mirrorClient.createClient(function(err, res){
-                    if(err) return cb(err);
-                    cb(null, res);
-                });
+                cb(null, res);
             });
         });
     });
@@ -44,6 +38,7 @@ exports.getOauthCallback = function(req, res, next){
     } else if(!req.session.userId){
         res.redirect( req.app.locals.mirrorClient.getAuthUrl() );
     } else {
+        console.log("trying to use existing creds for user id:: " + req.session.userId);
         credentialsStore.getStoredCredentials( req.session.userId, function(err, creds){
             if(err) return res.redirect( req.app.locals.mirrorClient.getAuthUrl() );
             var code = require('querystring').stringify( JSON.parse(creds) );  
