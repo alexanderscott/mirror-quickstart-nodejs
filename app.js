@@ -8,13 +8,12 @@ var express = require('express'),
     path = require("path"),
     config = require('./config'),
 
-    MirrorClient = require('mirror-api-client'),
     hbs = require('hbs'),
 
     app = express(),
     server;
 
-app.locals.mirrorClient = new MirrorClient({
+app.locals.mirrorClient = require('mirror-api-client')({
     clientId: config.googleApis.clientId,
     clientSecret: config.googleApis.clientSecret,
     redirectUri: config.googleApis.redirectUris[0],

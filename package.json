@@ -2,7 +2,7 @@
   "name": "mirror-quickstart-nodejs",
   "keywords": "google glass, glass, nodejs, quickstart",
   "description": "Google Mirror API's Quickstart for Node.js",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "repository": {
     "type": "git",
     "url": "https://bitbucket.org/alexanderscott/mirror-quickstart-nodejs.git"
@@ -17,7 +17,7 @@
     "bcrypt": "~0.7.7",
     "underscore": "~1.5.2",
     "async": "~0.2.9",
-    "mirror-api-client": ">= 0.0.4"
+    "mirror-api-client": ">= 0.2.0"
   },
   "devDependencies": {
     "mocha": "1.8.x"
