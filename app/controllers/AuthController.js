@@ -8,7 +8,7 @@ var CredentialsStore = require('../../lib/CredentialsStore'),
     credentialsStore = new CredentialsStore({});
 
 function _tryLogin(mirrorClient, code, cb){
-    console.log("trying getTokens with code:: " + code );
+    console.log("trying authorize with code:: " + code );
 
     mirrorClient.authorize(code, function(err, creds){
         console.log("authorize returned creds: ", creds || 'empty!');

@@ -1,0 +1,6 @@
+<div class="panel-heading">Recent Locations</div>
+<div class="list-group">
+    {{#each locations.items}}
+    <a href="/locations/{{this.id}}" data-item="{{this.id}}" class="list-group-item clearfix"> {{this.latitude}} , {{this.longitude}} </a>
+    {{/each}}
+</div>

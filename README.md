@@ -26,7 +26,7 @@ This project is closely based off of Google's official ruby quickstart guide, wi
 
 The MIT License (MIT)
 
-Copyright (c) 2013 Alex Ehrnschwender
+Copyright (c) 2014 Alex Ehrnschwender
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in

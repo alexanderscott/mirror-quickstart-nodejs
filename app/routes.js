@@ -5,6 +5,7 @@ var util = require('util'),
     config = require('../config'),
     timelineController = require('./controllers/TimelineController'),
     contactsController = require('./controllers/ContactsController'),
+    locationsController = require('./controllers/LocationsController'),
     subscriptionsController = require('./controllers/SubscriptionsController'),
     authController = require('./controllers/AuthController');
 
@@ -44,6 +45,9 @@ module.exports = function(app) {
     app.post('/contacts/delete', checkAuth, contactsController.deleteContact);
     app.post('/contacts/patch', checkAuth, contactsController.patchContact);
     app.post('/contacts/update', checkAuth, contactsController.updateContact);
+
+    app.get('/locations/:id', checkAuth, locationsController.listLocations, locationsController.getLocation, renderIndex);
+    app.get('/locations', checkAuth, locationsController.listLocations, renderIndex);
 
     app.get('/subscriptions', checkAuth, subscriptionsController.listSubscriptions, renderIndex);
     app.get('/subscriptions/subscription/:id', checkAuth, subscriptionsController.listSubscriptions, subscriptionsController.getSubscription, renderIndex);

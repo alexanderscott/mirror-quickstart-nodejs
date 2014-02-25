@@ -3,7 +3,7 @@
 var util = require('util'),
     _und = require('underscore'),
     config = require('../../config'),
-    locationHelper = require('../helpers/LocationHelper'),
+    cardHelper = require('../helpers/CardHelper'),
     TimelineItemModel = require('../models/TimelineItem');
 
 

@@ -24,6 +24,7 @@
                     <ul class="nav navbar-nav">
                         <li class="{{#if content}}{{#if content.timelineItem}}active{{/if}}{{/if}}"><a href="/">Timeline</a></li>
                         <li class="{{#if content}}{{#if content.contactItem}}active{{/if}}{{/if}}"><a href="/contacts">Contacts</a></li>
+                        <li class="{{#if content}}{{#if content.locationItem}}active{{/if}}{{/if}}"><a href="/locations">Locations</a></li>
                         <li class="{{#if content}}{{#if content.subscriptionItem}}active{{/if}}{{/if}}"><a href="/subscriptions">Subscriptions</a></li>
                     </ul>
                 </div><!--/.nav-collapse -->
@@ -78,6 +79,9 @@
                     {{#if contacts}}
                         {{> contacts_list}}
                     {{/if}}
+                    {{#if locations}}
+                        {{> locations_list}}
+                    {{/if}}
                     {{#if subscriptions}}
                         {{> subscriptions_list}}
                     {{/if}}
@@ -87,7 +91,7 @@
             <hr>
 
             <footer>
-                <p>&copy; Alex Ehrnschwender 2013</p>
+                <p>&copy; Alex Ehrnschwender 2014</p>
             </footer>
 
         </div><!--/.container-->
