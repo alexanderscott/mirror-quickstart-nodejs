@@ -2,7 +2,6 @@
 
 var util = require('util'),
     _und = require('underscore'),
-    config = require('../../config'),
     ContactModel = require('../models/Contact');
 
 exports.listContacts = function(req, res, next) {
@@ -19,7 +18,7 @@ exports.listContacts = function(req, res, next) {
 exports.insertContact = function(req, res, next) {
     var contact = _und.pick( req.body, Object.keys(ContactModel) );
     contact.imageUrls = [
-        (config.ssl ? 'https' : 'http' ) + '://' + config.host + ":" + config.port + '/assets/images/chipotle-tube-640x360.jpg' 
+        '/assets/images/chipotle-tube-640x360.jpg' 
     ];
 
     req.app.locals.mirrorClient.insertContact(contact, function(err, insertedContact){

@@ -2,7 +2,6 @@
 
 var util = require('util'),
     _und = require('underscore'),
-    config = require('../../config'),
     cardHelper = require('../helpers/CardHelper'),
     async = require('async'),
     SubscriptionModel = require('../models/Subscription');
@@ -19,7 +18,7 @@ exports.listSubscriptions = function(req, res, next){
 
 exports.insertSubscription = function(req, res, next) {
     var subscription = _und.pick( req.body, Object.keys(SubscriptionModel) );
-    subscription.callbackUrl = (config.ssl ? 'https' : 'http' ) + '://' + config.host + config.port + '/notify-callback'; 
+    subscription.callbackUrl = '/notify-callback'; 
 
     req.app.locals.mirrorClient.insertSubscription(subscription, function(err, insertedSubscription){
         if(err) return next('Error inserting subscription!');

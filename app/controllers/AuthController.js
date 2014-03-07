@@ -8,16 +8,12 @@ var CredentialsStore = require('../../lib/CredentialsStore'),
     credentialsStore = new CredentialsStore({});
 
 function _tryLogin(mirrorClient, code, cb){
-    console.log("trying authorize with code:: " + code );
 
     mirrorClient.authorize(code, function(err, creds){
-        console.log("authorize returned creds: ", creds || 'empty!');
         if(err) return cb(err);
 
         mirrorClient.getUserInfo(function(err, res){
             if(err) return cb(err);
-
-            console.log("getUserInfo res:", res); 
 
             credentialsStore.storeCredentials( res.id, creds, function(err, res){
                 if(err) return cb(err);

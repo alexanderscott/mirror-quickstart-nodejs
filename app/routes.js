@@ -2,7 +2,6 @@
 
 var util = require('util'),
     _und = require('underscore'),
-    config = require('../config'),
     timelineController = require('./controllers/TimelineController'),
     contactsController = require('./controllers/ContactsController'),
     locationsController = require('./controllers/LocationsController'),

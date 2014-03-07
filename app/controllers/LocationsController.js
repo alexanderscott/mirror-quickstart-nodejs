@@ -2,7 +2,6 @@
 
 var util = require('util'),
     _und = require('underscore'),
-    config = require('../../config'),
     cardHelper = require('../helpers/CardHelper'),
     LocationModel = require('../models/Location');
 

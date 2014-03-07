@@ -6,7 +6,7 @@ var express = require('express'),
     _und = require("underscore"),
     async = require('async'),
     path = require("path"),
-    config = require('./config'),
+    config = require('./client_secrets.json'),
 
     hbs = require('hbs'),
 
@@ -14,10 +14,10 @@ var express = require('express'),
     server;
 
 app.locals.mirrorClient = require('mirror-api-client')({
-    clientId: config.googleApis.clientId,
-    clientSecret: config.googleApis.clientSecret,
-    redirectUri: config.googleApis.redirectUris[0],
-    scope: config.googleApis.scope
+    clientId: config.web.client_id,
+    clientSecret: config.web.client_secret,
+    redirectUri: config.web.redirect_uris[0],
+    scope: config.web.scope
 });
 
 // Allow node to be run with proxy passing
@@ -37,8 +37,8 @@ app.use( express.urlencoded() );            // Needed to parse POST data sent as
 app.use( express.json() );
 
 // Session setup
-app.use( express.cookieParser( config.cookieSecret ) );                 // populates req.signedCookies
-app.use( express.session( { secret: config.sessionSecret }) );         // populates req.session, needed for CSRF
+app.use( express.cookieParser( config.session_secret || 'mirror-glass-secret') );    // populates req.signedCookies, required by session()
+app.use( express.session() );                                                        // populates req.session, needed for CSRF
 
 // CSRF for XSS protection - populates req.csrfToken()
 app.use(express.csrf());
@@ -80,7 +80,7 @@ app.use( function(err, req, res, next){
 app.use("/public", express.static(__dirname+'/public'));
 
 // Run the server
-server = http.createServer(app).listen( process.env.PORT || config.port);
+server = http.createServer(app).listen( 3000 );
 console.log((new Date()).toString()+ ":: glasstasks server listening on port::", server.address().port, ", environment:: ", app.settings.env);
 
 
