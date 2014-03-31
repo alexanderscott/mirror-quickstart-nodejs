@@ -14,12 +14,19 @@ This project is closely based off of Google's official ruby quickstart guide, wi
 
 ## Run
 
-    node app.js
+    npm start
 
 
 ## Contribute
 
     Fork + branch, then pull request.
+
+
+## TODO
+* Timeline menu items thru checkboxes in form
+* Model validations & doc object creation working
+* Attachments
+* Subscriptions
 
 
 ## License
