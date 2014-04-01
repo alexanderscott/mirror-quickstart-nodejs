@@ -23,10 +23,10 @@ This project is closely based off of Google's official ruby quickstart guide, wi
 
 
 ## TODO
-* Timeline menu items thru checkboxes in form
 * Model validations & doc object creation working
 * Attachments
-* Subscriptions
+* Locations
+* Subscriptions (see [here](https://github.com/bestng/mirror-api-subscription))
 
 
 ## License
@@ -51,5 +51,3 @@ FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
 COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
 IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-
-[![githalytics.com alpha](https://cruel-carlota.pagodabox.com/1fcc021639bf7d166b63ed9d9ae9d70b "githalytics.com")](http://githalytics.com/alexanderscott/mirror-quickstart-nodejs)
