@@ -29,6 +29,8 @@ app.set('views', __dirname + '/app/views' );
 app.engine('html', hbs.__express);
 hbs.registerPartials(__dirname + '/app/views/partials');
 
+//var helperFiles = fs.readdirSync(__dirname+'/app/helpers');
+hbs.registerHelper( 'inArray', require(__dirname+'/app/helpers/inArray.js') );
 
 // Compression (gzip), body parsing, URL encoding
 app.use( express.compress() );

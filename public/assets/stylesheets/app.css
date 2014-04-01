@@ -17,3 +17,105 @@ table td form, table td input[type='text'], table td button {
 img.button-icon {
 	width: 60px;
 }
+
+/*#timeline-insert-form {*/
+.form-horizontal {
+    /*font-size: 0.8em;*/
+
+}
+
+.page-wrap {
+  min-height: 100%;
+  /* equal to footer height */
+  margin-bottom: -40px; 
+}
+.page-wrap:after {
+  content: "";
+  display: block;
+}
+.footer, .page-wrap:after {
+  /* .push must be the same height as footer */
+  height: 40px; 
+    /*hr {*/
+        /*margin-top: 5px;*/
+        /*margin-bottom: 5px;*/
+    /*}*/
+    border-top: 1px solid #eee;
+    padding-bottom:10px;
+    padding-top: 20px;
+    .footer-text {
+        text-align:center;
+    }
+}
+
+
+#input-attachment {
+    margin-left:10px;
+    margin-right:10px;
+    display:inline-block;
+}
+
+.checkbox-label {
+    margin-left:10px;
+}
+
+#header-alert {
+    padding:5px;
+    padding-left:15px;
+    padding-right:35px;
+    margin-bottom:0;
+}
+
+
+@media (min-width: 768px) {
+  .sidebar {
+    position: fixed;
+    top: 51px;
+    bottom: 0;
+    /*right: 0;*/
+    left: 0;
+    z-index: 1000;
+    display: block;
+    padding: 20px;
+    overflow-x: hidden;
+    overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+    background-color: #f5f5f5;
+    border-right: 1px solid #eee;
+  }
+}
+
+/* Sidebar navigation */
+.nav-sidebar {
+  margin-right: -21px; /* 20px padding + 1px border */
+  margin-bottom: 20px;
+  margin-left: -20px;
+}
+.nav-sidebar > li > a {
+  padding-right: 20px;
+  padding-left: 20px;
+  font-size: 0.8em;
+  /*&:hover {*/
+    /*background-color: inherit;*/
+  /*}*/
+}
+.nav-sidebar > .active > a {
+  color: #fff;
+  background-color: #428bca;
+  &:hover {
+    background-color: #428bca;
+  }
+}
+
+.push {
+    min-height:100%;
+}
+.text-smallest {
+    font-size: 0.8em;
+}
+
+.sidebar-heading {
+    font-size: 1.2em;
+    color: #999;
+    font-weight: 600;
+    margin-bottom: 10px;
+}

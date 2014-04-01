@@ -10,7 +10,7 @@
     </head>
     <body>
         <div class="navbar navbar-fixed-top navbar-inverse" role="navigation">
-            <div class="container">
+            <!--<div class="container">-->
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                         <span class="sr-only">Toggle navigation</span>
@@ -20,7 +20,7 @@
                     </button>
                     <a class="navbar-brand" href="/">Mirror QuickStart - Node.js</a>
                 </div>
-                <div class="collapse navbar-collapse">
+                <div class="collapse navbar-collapse navbar-right">
                     <ul class="nav navbar-nav">
                         <li class="{{#if content}}{{#if content.timelineItem}}active{{/if}}{{/if}}"><a href="/">Timeline</a></li>
                         <li class="{{#if content}}{{#if content.contactItem}}active{{/if}}{{/if}}"><a href="/contacts">Contacts</a></li>
@@ -28,23 +28,45 @@
                         <li class="{{#if content}}{{#if content.subscriptionItem}}active{{/if}}{{/if}}"><a href="/subscriptions">Subscriptions</a></li>
                     </ul>
                 </div><!--/.nav-collapse -->
-            </div><!-- /.container -->
+            <!--</div>[> /.container <]-->
         </div><!-- /.navbar -->
 
         <div class="container">
 
-            <div id="header-alert" class="alert alert-{{#if alert}}{{alert}}{{else}}info{{/if}} alert-dismissable {{#unless message}} hidden {{/unless}}">
+            <div id="header-alert" class="alert alert-{{#if alert}}{{alert}}{{else}}info{{/if}} alert-dismissable {{#unless message}} hidden {{/unless}} col-sm-offset-3 col-md-offset-2">
               <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                 {{message}}
             </div>
 
             <div class="row row-offcanvas row-offcanvas-right">
+                <div id="sidebar" class="col-xs-6 col-sm-3 col-md-2 sidebar sidebar-offcanvas" role="navigation">
+                    <div class="page-wrap">
 
-                <div class="col-xs-12 col-sm-9">
+                        {{#if timeline}}
+                            {{> timeline_list}}
+                        {{/if}}
+                        {{#if contacts}}
+                            {{> contacts_list}}
+                        {{/if}}
+                        {{#if locations}}
+                            {{> locations_list}}
+                        {{/if}}
+                        {{#if subscriptions}}
+                            {{> subscriptions_list}}
+                        {{/if}}
+                    </div>
+                    <div class="footer">
+                        <p class="footer-text text-smallest border-top">
+                            <a href="http://alexehrnschwender.com" target="_blank">&copy; Alex Ehrnschwender 2014</a>
+                        </p>
+                    </div>
+                </div><!--/span-->
+
+                <div class="col-xs-12 col-sm-9 col-md-10 col-sm-offset-3 col-md-offset-2">
                     <p class="pull-right visible-xs">
                         <button type="button" class="btn btn-primary btn-xs" data-toggle="offcanvas">Toggle nav</button>
                     </p>
-                    <div class="jumbotron">
+                    <div class="">
 
                         {{#if content}}
                             {{#if content.timelineItemUpdate}}
@@ -72,27 +94,7 @@
                     </div>
                 </div><!--/span-->
 
-                <div class="col-xs-6 col-sm-3 sidebar-offcanvas panel panel-default" id="sidebar" role="navigation" style="padding:0;">
-                    {{#if timeline}}
-                        {{> timeline_list}}
-                    {{/if}}
-                    {{#if contacts}}
-                        {{> contacts_list}}
-                    {{/if}}
-                    {{#if locations}}
-                        {{> locations_list}}
-                    {{/if}}
-                    {{#if subscriptions}}
-                        {{> subscriptions_list}}
-                    {{/if}}
-                </div><!--/span-->
             </div><!--/row-->
-
-            <hr>
-
-            <footer>
-                <p>&copy; Alex Ehrnschwender 2014</p>
-            </footer>
 
         </div><!--/.container-->
 

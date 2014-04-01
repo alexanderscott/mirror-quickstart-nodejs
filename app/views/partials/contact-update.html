@@ -1,19 +1,63 @@
-<h3>{{content.contactUpdate.displayName}}</h3>
-<form id="update-contact-form" class="form-inline" method="post" action="/contacts/update">
-    <input type='hidden' name="_csrf" value="{{csrfToken}}">
-    <input type="hidden" name="id" value="{{content.contactUpdate.id}}">
-    <input type="hidden" name="source" value="{{content.contactUpdate.source}}">
-    <input type="hidden" name="kind" value="{{content.contactUpdate.kind}}">
-    <h5><b>ID: </b>{{content.contactUpdate.id}}</h5>
-    <h5><b>Display Name: </b><input name="displayName" type="text" value="{{content.contactUpdate.displayName}}"></h5>
-    <h5><b>Speakable Name: </b><input name="speakableName" type="text" value="{{content.contactUpdate.speakableName}}"></h5>
-    <h5><b>Phone Number: </b><input name="phoneNumber" type="text" value="{{content.contactUpdate.phoneNumber}}"></h5>
-    <h5><b>Image URL: </b><input name="imageUrls" type="text" value="{{content.contactUpdate.imageUrls.[0]}}"></h5>
-    <br>
-    <button class="btn btn-warning" type="submit" role="button" id="update-btn">Update</button>
-</form>
-<form id="delete-contact-form" class="form-inline" method="post" action="/contacts/delete">
-    <input type='hidden' name="_csrf" value="{{csrfToken}}">
-    <input type="hidden" name="id" value="{{content.contactUpdate.id}}">
-    <button class="btn btn-danger" type="submit" role="button">Delete</button>
-</form>
+{{#with content.contactUpdate}}
+<div class="page-header">
+    <h1>{{displayName}} <small>({{id}})</small></h1>
+</div>
+{{/with}}
+
+<div class="well">
+
+    <form id="update-contact-form" class="form-horizontal" method="post" action="/contacts/update" role="form">
+        <input type='hidden' name="_csrf" value="{{csrfToken}}">
+
+        {{#with content.contactUpdate}}
+        <input type="hidden" name="id" value="{{id}}">
+        <input type="hidden" name="source" value="{{source}}">
+        <input type="hidden" name="kind" value="{{kind}}">
+
+        <div class="form-group">
+            <label for="input-contact-displayName" class="col-sm-2 control-label">Display Name</label>
+            <div class="col-sm-10">
+                <input id="input-contact-displayName" name="displayName" type="text" value="{{displayName}}" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="input-contact-speakableName" class="col-sm-2 control-label">Speakable Name</label>
+            <div class="col-sm-10">
+                <input id="input-contact-speakableName" name="speakableName" type="text" value="{{speakableName}}" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="input-contact-phoneNumber" class="col-sm-2 control-label">Phone #</label>
+            <div class="col-sm-10">
+                <input id="input-contact-phoneNumber" name="phoneNumber" type="text" value="{{phoneNumber}}" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="input-contact-imageUrl" class="col-sm-2 control-label">Image URL</label>
+            <div class="col-sm-10">
+                <input id="input-contact-imageUrl" name="imageUrls" type="text" value="{{imageUrls.[0]}}" />
+            </div>
+        </div>
+
+        <br />
+        <div class="form-group">
+            <div class="col-sm-offset-10 col-sm-2">
+                <button id="contact-update-btn" class="btn btn-warning pull-right" type="submit" role="button">Update Contact</button>
+            </div>
+        </div>
+        {{/with}}
+    </form>
+
+    <form id="delete-contact-form" class="form-horizontal" method="post" action="/contacts/delete" role="form">
+        <input type='hidden' name="_csrf" value="{{csrfToken}}">
+        {{#with content.contactUpdate}}
+        <input type="hidden" name="id" value="{{id}}">
+        
+        <div class="form-group">
+            <div class="col-sm-offset-10 col-sm-2">
+                <button id="contact-delete-btn" class="btn btn-danger pull-right" type="submit" role="button">Delete Contact</button>
+            </div>
+        </div>
+        {{/with}}
+    </form>
+</div>

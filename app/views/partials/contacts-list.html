@@ -1,7 +1,9 @@
-<div class="panel-heading">Recent Contacts</div>
-<div class="list-group">
+<div class="sidebar-heading">Recent Contacts</div>
+<ul class="nav nav-sidebar">
     {{#each contacts.items}}
-    <a href="/contacts/contact/{{this.id}}" data-item="{{this.id}}" class="list-group-item clearfix"> {{this.displayName}} </a>
+    <li id="sidebar-contact-{{this.id}}" data-contact={{this.id}}" class="sidebar-link">
+        <a href="/contacts/contact/{{this.id}}" data-contact="{{this.id}}"> {{this.displayName}}</a>
+    </li>
     {{/each}}
-</div>
+</ul>
 

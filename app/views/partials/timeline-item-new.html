@@ -1,41 +1,67 @@
-<h2>Timeline</h2>
+<div class="page-header">
+    <h1>New Timeline Item</h1>
+</div>
 <p>When you first sign in, this Glassware inserts a welcome message. Use these controls to insert more items into your timeline. Learn more about the timeline APIs <a href="https://developers.google.com/glass/timeline" target="_blank">here</a>.</p>
 
 <br>
 
-<form id="timeline-insert-form" action="/timeline/insert" method="post" class="form" role="form">
-<!--<form id="timeline-insert-form" action="/timeline/insert" method="post" class="form" role="form" enctype="multipart/form-data">-->
-    <input type='hidden' name="_csrf" value="{{csrfToken}}">
+<div class="well">
+    <form id="timeline-insert-form" action="/timeline/insert" method="post" class="form-horizontal" role="form">
+        <input type='hidden' name="_csrf" value="{{csrfToken}}">
 
-    <label>Title <input name="title" type="text" placeholder="Insert title here" value=""></label>
-    <label>Text <input name="text" type="text" placeholder="Insert text here..." value=""></label> 
+        <div class="form-group">
+            <label for="input-timeline-title" class="col-sm-2 control-label">Title </label>
+            <div class="col-sm-10">
+                <input id="input-timeline-title" name="title" type="text" placeholder="Insert title here" value="" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="input-timeline-text" class="col-sm-2 control-label">Text </label>
+            <div class="col-sm-10">
+                <input id="input-timeline-text" name="title" type="text" placeholder="Insert text here..." value="" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="textarea-timeline-html" class="col-sm-2 control-label">HTML </label>
+            <div class="col-sm-10">
+                <textarea id="textarea-timeline-html" class="form-control" rows="10" cols="50" name="html" style="resize:none"></textarea>
+            </div>
+        </div>
 
-    <label>HTML
-        <textarea class="form-control" rows="10" cols="50" name="html" placeholder="Glassify me, Captain!" style="resize:none"></textarea>
-    </label>
 
+        <br>
 
-    <br>
+        <div class="form-group">
+            <label for="menu-item-actions" class="col-sm-2 control-label">Menu Items</label>
+            <div class="col-sm-10">
+                <div id="menu-item-actions" class="checkboxes">
+                    <label class="checkbox-label">
+                        <input type="checkbox" name="menuItems[]" value="DELETE" checked /> DELETE </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" name="menuItems[]" value="SHARE" checked /> SHARE </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" name="menuItems[]" value="READ_ALOUD" /> READ_ALOUD </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" name="menuItems[]" value="TOGGLE_PINNED" /> TOGGLE_PINNED </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" name="menuItems[]" value="OPEN_URI"/> OPEN_URI </label>
+                </div>
+            </div>
+        </div>
 
-    <div class="row">
-
-        <div class="checkboxes">
-            <label><input type="checkbox" name="menuItems.DELETE" value="DELETE" data-menuItem="DELETE" checked> DELETE </label>
-            <label><input type="checkbox" name="menuItems.SHARE" value="SHARE" data-menuItem="SHARE" checked> SHARE </label>
-            <label><input type="checkbox" name="menuItems.READ-ALOUD" value="READ-ALOUD" data-menuItem="READ-ALOUD" checked> READ-ALOUD </label>
+        <div class="form-group">
+            <label for="input-attachment" class="col-sm-2 control-label">Attachment</label>
+            <input id="input-attachment" type="file" name="attachment" maxlength="50" />
+        <!--<form id="timeline-insert-form" action="/timeline/insert" method="post" class="form" role="form" enctype="multipart/form-data">-->
+            <input name='imageUrl' type='hidden' value='/public/assets/images/chipotle-tube-640x360.jpg' />
+            <input name='contentType' type='hidden' value='image/jpeg' />
         </div>
 
         <br>
-
-        <label>Attachment <input type="file" name="attachment" maxlength="50"></label>
-        <input name='imageUrl' type='hidden' value='/public/assets/images/chipotle-tube-640x360.jpg'>
-        <input name='contentType' type='hidden' value='image/jpeg'>
-
-        <br>
-
-        <button class="btn btn-success pull-right" type="submit" role="button" id="timeline-items-new-btn">Insert Timeline Item</button>
-    </div>
-    
-</form>
-<br>
-
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button class="btn btn-success pull-right" type="submit" role="button" id="timeline-items-new-btn">Insert Timeline Item</button>
+            </div>
+        </div>
+    </form>
+</div>

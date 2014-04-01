@@ -1,6 +1,8 @@
-<div class="panel-heading">Recent Timeline Updates</div>
-<div class="list-group">
+<div class="sidebar-heading">Recent Timeline Items</div>
+<ul class="nav nav-sidebar">
     {{#each timeline.items}}
-    <a href="/timeline/items/{{this.id}}" data-item="{{this.id}}" class="list-group-item clearfix"> {{#if this.title}} {{this.title}} {{else}} {{this.text}} {{/if}}</a>
+    <li id="sidebar-item-{{this.id}}" data-item={{this.id}}" class="sidebar-link">
+        <a href="/timeline/items/{{this.id}}" data-item="{{this.id}}"> {{#if this.title}} {{this.title}} {{else}} {{this.id}} {{/if}}</a>
+    </li>
     {{/each}}
-</div>
+</ul>

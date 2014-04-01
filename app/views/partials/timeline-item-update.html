@@ -1,44 +1,97 @@
-<form id="update-item-form" class="form-inline" method="post" action="/timeline/update">
-    <input type='hidden' name="_csrf" value="{{csrfToken}}">
-    <input type="hidden" name="id" value="{{content.timelineItemUpdate.id}}">
-    <input type="hidden" name="source" value="{{content.timelineItemUpdate.source}}">
-    <input type="hidden" name="kind" value="{{content.timelineItemUpdate.kind}}">
+{{#with content.timelineItemUpdate}}
+<div class="page-header">
+    <h1>{{title}} <small>({{id}})</small></h1>
+</div>
+{{/with}}
 
-    <table class="table table-bordered"> 
-        <tbody>
-            <tr> <th>Title</th><td><input name="title" type="text" value="{{content.timelineItemUpdate.title}}"></td></tr>
-            <tr> <th>ID</th><td>{{content.timelineItemUpdate.id}}</td> </tr>
-            <tr> <th>Text</th><td><input name="text" type="text" value="{{content.timelineItemUpdate.text}}"></td> </tr>
-            <tr> <th>HTML</th><td>{{content.timelineItemUpdate.html}}</td> </tr>
-            <tr> <th>Menu Items</th> 
-                <td>
-                    <div class="checkbox">
-                        <label><input type="checkbox" name="menuItems.DELETE" value="DELETE" data-menuItem="DELETE" {{#if content.timelineItemUpdate.menuItemsObj}}{{#if content.timelineItemUpdate.menuItemsObj.DELETE}}checked{{/if}}{{/if}}> DELETE </label>
-                        <label><input type="checkbox" name="menuItems.SHARE" value="SHARE" data-menuItem="SHARE" {{#if content.timelineItemUpdate.menuItemsObj}}{{#if content.timelineItemUpdate.menuItemsObj.SHARE}}checked{{/if}}{{/if}}> SHARE </label>
-                    </div>
-                </td>
-            </tr>
-            <tr> <th>Attachments</th> 
-                <td>
-                    {{#if content.timelineItemUpdate.attachments}}
-                        {{#each content.timelineItemUpdate.attachments}}
-                            <img src="/attachment-proxy?timelineItemId={{content.timelineItemUpdate.id}}&attachmentId={{content.timelineItemUpdate.id}}">
-                        {{/each}}
-                    {{else}}
-                        <div class="muted">None</div>
-                    {{/if}}
-                </td>
-            </tr>
-        </tbody> 
-    </table>
+<div class="well">
+    <form id="update-item-form" class="form-horizontal" method="post" action="/timeline/update">
+        <input type='hidden' name="_csrf" value="{{csrfToken}}" />
+        {{#with content.timelineItemUpdate}}
+        <input type="hidden" name="id" value="{{id}}" />
+        <input type="hidden" name="source" value="{{source}}" />
+        <input type="hidden" name="kind" value="{{kind}}" />
 
-    <br>
+        <div class="form-group">
+            <label for="input-timeline-title" class="col-sm-2 control-label">Title </label>
+            <div class="col-sm-10">
+                <input id="input-timeline-title" name="title" type="text" value="{{title}}" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="input-timeline-text" class="col-sm-2 control-label">Text </label>
+            <div class="col-sm-10">
+                <input id="input-timeline-text" name="text" type="text" value="{{text}}" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="textarea-timeline-html" class="col-sm-2 control-label">HTML </label>
+            <div class="col-sm-10">
+                <textarea id="textarea-timeline-html" class="form-control" rows="10" cols="50" name="html" value="{{html}}" style="resize:none"></textarea>
+            </div>
+        </div>
 
-    <button id="update-btn" class="btn btn-warning" type="submit">Update</button>
+        <div class="form-group">
+            <label for="menu-item-actions" class="col-sm-2 control-label">Menu Items</label>
+            <div class="col-sm-10">
+                <div id="menu-item-actions" class="checkboxes">
+                    <label class="checkbox-label">
+                        <input type="checkbox" name="menuItems[]" value="DELETE" data-menuItem="DELETE" 
+                            {{#inArray "DELETE" menuItems}}checked{{/inArray}} /> DELETE </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" name="menuItems[]" value="SHARE" data-menuItem="SHARE" 
+                            {{#inArray "SHARE" menuItems}}checked{{/inArray}} /> SHARE </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" name="menuItems[]" value="READ_ALOUD" data-menuItem="READ_ALOUD" 
+                            {{#inArray "READ_ALOUD" menuItems}}checked{{/inArray}} /> READ_ALOUD </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" name="menuItems[]" value="TOGGLE_PINNED" data-menuItem="TOGGLE_PINNED" 
+                            {{#inArray "TOGGLE_PINNED" menuItems}}checked{{/inArray}} /> TOGGLE_PINNED </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" name="menuItems[]" value="OPEN_URI" data-menuItem="OPEN_URI" 
+                            {{#inArray "OPEN_URI" menuItems}}checked{{/inArray}} /> OPEN_URI </label>
+                </div>
+            </div>
+        </div>
 
-</form>
-<form id="delete-item-form" class="form-inline" method="post" action="/timeline/delete">
-    <input type='hidden' name="_csrf" value="{{csrfToken}}">
-    <input type="hidden" name="id" value="{{content.timelineItemUpdate.id}}">
-    <button class="btn btn-danger" type="submit">Delete</button>
-</form>
+
+        <br />
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Attachments</label>
+            <div class="col-sm-10">
+                {{#if attachments}}
+                    {{#each attachments}}
+                        <img src="/attachment-proxy?timelineItemId={{id}}&attachmentId={{this.id}}" alt="attachment proxy"/>
+                    {{/each}}
+                {{else}}
+                    <div class="muted" style="">None</div>
+                {{/if}}
+            </div>
+        </div>
+
+        <br />
+        <br />
+
+        <div class="form-group">
+            <div class="col-sm-offset-8 col-sm-4">
+                <button id="timeline-items-update-btn" class="btn btn-warning" type="submit" role="button">Update Timeline Item</button>
+                <!--<button id="timeline-items-delete-btn" class="btn btn-danger" type="submit" role="button">Delete Timeline Item</button>-->
+                <!--<button class="btn btn-danger pull-right" type="submit" role="button" id="timeline-items-update-btn">Update Timeline Item</button>-->
+            </div>
+        </div>
+        {{/with}}
+
+    </form>
+    <form id="delete-item-form" class="form-horizontal" method="post" action="/timeline/delete">
+        <input type='hidden' name="_csrf" value="{{csrfToken}}" />
+        <div class="form-group">
+            <div class="col-sm-offset-8 col-sm-4">
+                {{#with content.timelineItemUpdate}}
+                <input type="hidden" name="id" value="{{id}}" />
+                <button id="timeline-item-delete-btn" class="btn btn-danger" type="submit" role="button">Delete Timeline Item</button>
+                {{/with}}
+            </div>
+        </div>
+    </form>
+</div>

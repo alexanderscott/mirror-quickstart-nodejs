@@ -1,10 +1,39 @@
-<h3>Insert a new Contact</h3>
-<form id="insert-contact-form" class="form-inline" method="post" action="/contacts/insert">
-    <input type='hidden' name="_csrf" value="{{csrfToken}}">
-    <h5><b>ID: </b><input name="id" type="text" value=""></h5>
-    <h5><b>Display Name: </b><input name="displayName" type="text" value=""></h5>
-    <h5><b>Speakable Name: </b><input name="speakableName" type="text" value=""></h5>
-    <h5><b>Phone Number: </b><input name="phoneNumber" type="text" value=""></h5>
-    <h5><b>Image URL: </b><input name="imageUrls" type="text" value=""></h5>
-    <button class="btn btn-success pull-right" type="submit" id="contact-new-btn">Insert Contact</button>
-</form>
+<div class="page-header">
+    <h1>New Contact</h1>
+</div>
+<div class="well">
+    <form id="insert-contact-form" class="form-horizontal" method="post" action="/contacts/insert" role="form">
+        <input type='hidden' name="_csrf" value="{{csrfToken}}">
+
+        <div class="form-group">
+            <label for="input-contact-displayName" class="col-sm-2 control-label">Display Name</label>
+            <div class="col-sm-10">
+                <input id="input-contact-displayName" name="displayName" type="text" value="" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="input-contact-speakableName" class="col-sm-2 control-label">Speakable Name</label>
+            <div class="col-sm-10">
+                <input id="input-contact-speakableName" name="speakableName" type="text" value="{{speakableName}}" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="input-contact-phoneNumber" class="col-sm-2 control-label">Phone #</label>
+            <div class="col-sm-10">
+                <input id="input-contact-phoneNumber" name="phoneNumber" type="text" value="{{phoneNumber}}" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="input-contact-imageUrl" class="col-sm-2 control-label">Image URL</label>
+            <div class="col-sm-10">
+                <input id="input-contact-imageUrl" name="imageUrls" type="text" value="{{imageUrls.[0]}}" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button class="btn btn-success pull-right" type="submit" role="button" id="contact-new-btn">Insert Contact</button>
+            </div>
+        </div>
+    </form>
+</div>

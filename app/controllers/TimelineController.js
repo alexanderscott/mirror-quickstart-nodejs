@@ -6,9 +6,21 @@ var util = require('util'),
     TimelineItemModel = require('../models/TimelineItem');
 
 
+function fixMenuItemMappings(item){
+    item.menuItems = item.menuItems || [];
+    var menuItems = item.menuItems.map(function(val, i){ 
+        if(_und.isString(val)) return { action: val };
+        else if(_und.isObject(val)) return val.action;
+        else return val;
+    });
+    item.menuItems = menuItems;
+    return item;
+}
 
 exports.insertTimelineItem = function(req, res, next) {
     var item = _und.pick( req.body, Object.keys(TimelineItemModel) );
+    fixMenuItemMappings(item);
+    //console.log("inserting item with attributes: " + util.inspect(item));
     req.app.locals.mirrorClient.insertTimelineItem(item, function(err, insertedItem){
         if(err) return next('Error inserting timeline item.');
         req.session.message = 'Successfully inserted into timeline!';
@@ -28,6 +40,7 @@ exports.listTimelineItems = function(req, res, next){
 exports.getTimelineItem = function(req, res, next){
     req.app.locals.mirrorClient.getTimelineItem( req.params.id, function(err, timelineItem){
         if(err) return next("Error fetching timeline item.");
+        fixMenuItemMappings(timelineItem);
         console.log("returned item ::", timelineItem);
         res.locals.content = { timelineItemUpdate: timelineItem };        // Populate main content to be rendered
         next();
@@ -36,6 +49,8 @@ exports.getTimelineItem = function(req, res, next){
 
 exports.patchTimelineItem = function(req, res, next) {
     var item = _und.pick( req.body, Object.keys(TimelineItemModel) );
+    //console.log("pathing item with attributes: " + util.inspect(item));
+    fixMenuItemMappings(item);
     req.app.locals.mirrorClient.patchTimelineItem( item, function(err, patchedItem){
         if(err) return next('Error patching timeline item.');
         req.session.message = 'Successfully patched timeline item.';
@@ -45,6 +60,8 @@ exports.patchTimelineItem = function(req, res, next) {
 
 exports.updateTimelineItem = function(req, res, next) {
     var item = _und.pick( req.body, Object.keys(TimelineItemModel) );
+    //console.log("updating item with attributes: " + util.inspect(item));
+    fixMenuItemMappings(item);
     req.app.locals.mirrorClient.updateTimelineItem( item, function(err){
         if(err) return next('Error updating timeline item.');
         req.session.message = 'Successfully updated timeline item.';

@@ -1,6 +1,8 @@
-<div class="panel-heading">Recent Subscriptions</div>
-<div class="list-group">
+<div class="sidebar-heading">Recent Subscriptions</div>
+<ul class="nav nav-sidebar">
     {{#each subscriptions.items}}
-    <a href="/subscriptions/subscription/{{this.id}}" data-item="{{this.id}}" class="list-group-item clearfix"> {{this.displayName}} </a>
+    <li id="sidebar-subscription-{{this.id}}" data-subscription={{this.id}}" class="sidebar-link">
+        <a href="/subscriptions/subscription/{{this.id}}" data-subscription="{{this.id}}"> {{this.displayName}} </a>
+    </li>
     {{/each}}
-</div>
+</ul>
