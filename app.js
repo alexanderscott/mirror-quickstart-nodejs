@@ -67,6 +67,7 @@ app.use( function(req, res, next){
 
 
 // Setup routes
+app.use("/assets", express.static(__dirname + "/public/assets"));
 require('./app/routes')(app);
 
 // Error handling
@@ -83,7 +84,7 @@ app.use("/public", express.static(__dirname+'/public'));
 
 // Run the server
 server = http.createServer(app).listen( 3000 );
-console.log((new Date()).toString()+ ":: glasstasks server listening on port::", server.address().port, ", environment:: ", app.settings.env);
+console.log((new Date()).toString()+ ":: glasstasks server listening on port 3000, environment:: ", app.settings.env);
 
 
 //function start(){

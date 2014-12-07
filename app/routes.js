@@ -10,6 +10,12 @@ var util = require('util'),
 
 module.exports = function(app) {
 
+    function redirectLogin(req, res, next) {
+        // If the Mirror client has not been established, redirect user to Google auth URL
+        console.log("redirecting to::" +  req.app.locals.mirrorClient.getAuthUrl() );
+        res.redirect( req.app.locals.mirrorClient.getAuthUrl() );
+    }
+
     function checkAuth(req, res, next) {
         //res.locals.csrfToken = req.csrfToken();
         
@@ -17,18 +23,17 @@ module.exports = function(app) {
         req.session.message = null;
 
         if( !app.locals.mirrorClient.mirror ) {
-
-            // If the Mirror client has not been established, redirect user to Google auth URL
-            console.log("redirecting to::" +  req.app.locals.mirrorClient.getAuthUrl() );
-            res.redirect( req.app.locals.mirrorClient.getAuthUrl() );
-
+            res.redirect("/login");
         } else next(); 
     }
 
     function renderIndex(req, res, next){ res.render('index'); }
+    function renderLogin(req, res, next){ res.render('login'); }
     function redirectIndex(req, res, next){ res.redirect('/'); }
 
     app.get('/', checkAuth, timelineController.listTimelineItems, renderIndex);
+    app.get("/login", renderLogin);
+    app.get("/login/redirect", redirectLogin); 
     app.get('/timeline', checkAuth, timelineController.listTimelineItems, renderIndex);
     app.get('/timeline/items/:id', checkAuth, timelineController.listTimelineItems, timelineController.getTimelineItem, renderIndex);
     app.post('/timeline/insert', checkAuth, timelineController.insertTimelineItem);
